@@ -13,6 +13,12 @@ public class PlayerDistanceChecker : MonoBehaviour
     private void Start()
     {
         m_players = FindObjectsOfType<Player>();
+
+        if (m_players.Length < 2)
+        {
+            Debug.Log("Not enough players for the distance checker to function.");
+            Destroy(gameObject);
+        }
     }
 
     private void Update()

@@ -8,11 +8,16 @@ public class Player : MonoBehaviour
 
     private Rigidbody m_rigidbody = null;
     private PlayerDistanceChecker m_distanceChecker = null;
-    private float m_speed = 0.0f;
 
-    // Const
-    private const float m_kBaseSpeed = 1.0f;
-    private const float m_kRadiusSpeed = 1.8f;
+    [Header("Movement")]
+
+    public float m_moveForce;
+    public float m_maxSpeed;
+
+    public float m_brakingDrag = 0.9f; // Used when no directional input
+    public float m_movingDrag = 0.5f;
+    public float m_dragCoefficient = 10.0f;
+    private float m_currentDrag = 0.9f;
 
     private void Awake()
     {
@@ -27,24 +32,33 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        if (m_moveDirection == Vector2.zero)
+        // If no directional input, the player is 'braking'
+        bool playerBraking = (m_moveDirection.magnitude < 0.01f);
+
+        Vector3 playerVelocity = m_rigidbody.velocity;
+        playerVelocity.y = 0.0f;
+        float playerHorSpeed = playerVelocity.magnitude;
+
+        // Only apply move speed if under max speed, and there is directional input
+        if ((playerHorSpeed < m_maxSpeed) && !playerBraking)
         {
-            return;
+            Vector3 moveDirection = Camera.main.RelativeDirection(m_moveDirection);
+            transform.forward = moveDirection;
+
+            Vector3 moveVector = m_moveForce * moveDirection.normalized * Time.fixedDeltaTime;
+            m_rigidbody.AddForce(moveVector, ForceMode.Impulse);
         }
 
-        if (m_distanceChecker)
-        {
-            m_speed = (m_distanceChecker.m_withinRadius) ? m_kRadiusSpeed : m_kBaseSpeed;
-        }
-        else
-        {
-            m_speed = m_kBaseSpeed;
-        }
+        ApplyDrag(playerBraking);
+    }
 
-        Vector3 moveDirection = Camera.main.RelativeDirection(m_moveDirection);
+    private void ApplyDrag(bool _braking)
+    {
+        m_currentDrag = (_braking) ? m_brakingDrag : m_movingDrag;
 
-        transform.forward = moveDirection;
+        Vector3 playerVelocity = m_rigidbody.velocity;
+        playerVelocity.y = 0.0f;
 
-        m_rigidbody.AddForce(moveDirection.normalized * m_speed, ForceMode.Impulse);
+        m_rigidbody.AddForce(-playerVelocity * m_currentDrag * m_dragCoefficient * Time.fixedDeltaTime, ForceMode.Impulse);
     }
 }

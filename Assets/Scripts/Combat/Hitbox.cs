@@ -13,6 +13,7 @@ public class Hitbox : CombatVolume
     private IHitboxListener m_hitboxListener = null;
     private EColliderState m_colliderState;
     private static Color[] m_colliderStateColors = { Color.grey, Color.green, Color.red };
+    private List<int> m_objectsHit = new List<int>();
 
     public void ToggleHitbox()
     {
@@ -48,11 +49,16 @@ public class Hitbox : CombatVolume
         // Get colliders overlapping with ours
         Collider[] colliders = OverlapCollider();
 
-
         for (int i = 0; i < colliders.Length; i++)
         {
             Collider hit = colliders[i];
-            m_hitboxListener?.CollidedWith(hit);
+            int hitID = hit.GetInstanceID();
+
+            if (!m_objectsHit.Contains(hitID))
+            {
+                m_hitboxListener?.CollidedWith(hit);
+                m_objectsHit.Add(hitID);
+            }
         }
 
         // Update state
@@ -67,11 +73,13 @@ public class Hitbox : CombatVolume
     public void EnableCollisions()
     {
         m_colliderState = EColliderState.open;
+        m_objectsHit.Clear();
     }
 
     public void DisableCollisions()
     {
         m_colliderState = EColliderState.closed;
+        m_objectsHit.Clear();
     }
 
     private void OnDrawGizmos()

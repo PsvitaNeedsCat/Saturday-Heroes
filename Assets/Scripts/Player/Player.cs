@@ -32,7 +32,14 @@ public class Player : MonoBehaviour
             return;
         }
 
-        m_speed = (m_distanceChecker.m_withinRadius) ? m_kRadiusSpeed : m_kBaseSpeed;
+        if (m_distanceChecker)
+        {
+            m_speed = (m_distanceChecker.m_withinRadius) ? m_kRadiusSpeed : m_kBaseSpeed;
+        }
+        else
+        {
+            m_speed = m_kBaseSpeed;
+        }
 
         Vector3 moveDirection = Camera.main.RelativeDirection(m_moveDirection);
 

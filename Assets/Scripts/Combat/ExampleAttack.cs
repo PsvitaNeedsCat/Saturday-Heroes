@@ -12,6 +12,12 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
 
     public void Attack()
     {
+        // Wait for attack to finish
+        if (m_hitboxActive)
+        {
+            return;
+        }
+
         m_hitbox.SetListener(this);
 
         StopAllCoroutines();
@@ -54,9 +60,12 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
     {
         Hurtbox hurtbox = _collider.GetComponent<Hurtbox>();
 
-        if (hurtbox.m_damageType != m_hitbox.m_damageType)
+        if (hurtbox)
         {
-            hurtbox.ApplyDamage(m_damage);
+            if (hurtbox.m_damageType != m_hitbox.m_damageType)
+            {
+                hurtbox.ApplyDamage(m_damage);
+            }
         }
     }
 

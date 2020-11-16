@@ -6,10 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
+    [HideInInspector] public int m_damage = 1;
+
     private float m_speed = 1.0f;
     private Rigidbody m_rigidBody = null;
 
-    private Action m_onHit = null;
+    private Action<Collider, Projectile> m_onHit = null;
     private Type[] m_hitTypes = null;
 
     private void Awake()
@@ -18,13 +20,22 @@ public class Projectile : MonoBehaviour
     }
 
     // Initialises the projectile
-    public void Init(Action _onHit, Type[] _hitTypes, float _speed = 1.0f)
+    public void Init(
+        Type[] _hitTypes, 
+        int _damage = 1, 
+        float _speed = 1.0f, 
+        float _timeUntilDestroy = 3.0f, 
+        Action<Collider, Projectile> _onHit = null )
     {
+        m_hitTypes = _hitTypes;
+
+        m_damage = _damage;
+
         m_speed = _speed;
 
-        m_onHit = _onHit;
+        Destroy(gameObject, _timeUntilDestroy);
 
-        m_hitTypes = _hitTypes;
+        m_onHit = _onHit;
     }
 
     // Checks if the collision was with something valid
@@ -35,7 +46,7 @@ public class Projectile : MonoBehaviour
             Component comp = other.GetComponent(m_hitTypes[i]);
             if (comp)
             {
-                m_onHit?.Invoke();
+                m_onHit?.Invoke(other, this);
                 return;
             }
         }

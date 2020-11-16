@@ -7,8 +7,10 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
     public int m_damage = 1;
     public Hitbox m_hitbox;
     public float m_attackDuration = 0.5f;
+    public Animator m_animator;
 
     private bool m_hitboxActive;
+    private int m_attackIndex = 0;
 
     public void Attack()
     {
@@ -17,6 +19,10 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         {
             return;
         }
+
+        m_animator.SetTrigger("Attack");
+        m_animator.SetInteger("AttackIndex", m_attackIndex);
+        m_attackIndex = (m_attackIndex == 0) ? 1 : 0;
 
         m_hitbox.SetListener(this);
 

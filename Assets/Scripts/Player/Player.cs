@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private Rigidbody m_rigidbody = null;
     private PlayerDistanceChecker m_distanceChecker = null;
 
+    public Transform m_rotatable;
+    public Animator m_animator;
+
     [Header("Movement")]
 
     public float m_moveForce;
@@ -37,13 +40,17 @@ public class Player : MonoBehaviour
 
         Vector3 playerVelocity = m_rigidbody.velocity;
         playerVelocity.y = 0.0f;
+
+        m_animator.SetFloat("XSpeed", playerVelocity.normalized.x);
+        m_animator.SetFloat("ZSpeed", playerVelocity.normalized.z);
+
         float playerHorSpeed = playerVelocity.magnitude;
 
         // Only apply move speed if under max speed, and there is directional input
         if ((playerHorSpeed < m_maxSpeed) && !playerBraking)
         {
             Vector3 moveDirection = Camera.main.RelativeDirection(m_moveDirection);
-            transform.forward = moveDirection;
+            m_rotatable.transform.forward = moveDirection;
 
             Vector3 moveVector = m_moveForce * moveDirection.normalized * Time.fixedDeltaTime;
             m_rigidbody.AddForce(moveVector, ForceMode.Impulse);

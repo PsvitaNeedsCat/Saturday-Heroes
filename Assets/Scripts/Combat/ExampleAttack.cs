@@ -79,6 +79,8 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
             Debug.Log("Parried object, gained: " + parryable.m_manaValue);
             parryable.OnParried();
             AudioManager.Instance.PlaySound("parry");
+            EffectsManager.SpawnEffect("Parry", _collider.transform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), Vector3.one, 2.0f);
+
             m_mana.Mana += parryable.m_manaValue;
         }
 

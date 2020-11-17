@@ -11,7 +11,7 @@ public abstract class Card : MonoBehaviour
     }
 
     protected int m_ID;
-    protected ECardType cardType;
+    protected ECardType m_cardType;
     protected bool m_valid = true;
     // Start is called before the first frame update
     protected virtual void Start()
@@ -27,7 +27,7 @@ public abstract class Card : MonoBehaviour
 
     public ECardType GetCardType()
     {
-        return cardType;
+        return m_cardType;
     }
 
     public bool GetValid()

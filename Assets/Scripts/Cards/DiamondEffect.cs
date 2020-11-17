@@ -9,7 +9,7 @@ public class DiamondEffect : Card
     {
         base.Start();
         m_ID = 1;
-        cardType = ECardType.Effect;
+        m_cardType = ECardType.Effect;
     }
 
     // Update is called once per frame

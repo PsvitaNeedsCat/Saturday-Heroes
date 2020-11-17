@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Player m_otherPlayer = null;
     private Rigidbody m_rigidbody = null;
     private HealthComponent m_health = null;
+    private ManaComponent m_mana = null;
     private PlayerInput m_playerInput = null;
     [HideInInspector] public int m_playerNumber;
     private bool m_attemptingRevive = false;
@@ -41,6 +42,9 @@ public class Player : MonoBehaviour
 
         m_health = GetComponent<HealthComponent>();
         m_health.Init(100, OnHurt, Downed, OnHealed);
+
+        m_mana = GetComponent<ManaComponent>();
+        m_mana.Init(GenerateNewCard, ManaUpdated, ManaUpdated);
     }
 
     private void Start()
@@ -213,6 +217,17 @@ public class Player : MonoBehaviour
         // otherwise instantiate the new card right above the tile
         Instantiate(_card.GetPrefab(), hit.transform.position + Vector3.up * 0.1f, Quaternion.identity);
         CardManager.UseSelectedCard(m_playerNumber);
+        m_animator.SetTrigger("PlaceCard");
         return true;
+    }
+
+    private void ManaUpdated()
+    {
+        UIManager.Instance.UpdatePlayerManaBar(m_playerNumber, m_mana.Mana, m_mana.MaxMana);
+    }
+
+    private void GenerateNewCard()
+    {
+        CardManager.GiveRandomCard(m_playerNumber);
     }
 }

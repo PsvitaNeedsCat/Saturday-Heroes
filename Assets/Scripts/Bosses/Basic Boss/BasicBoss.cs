@@ -6,8 +6,9 @@ using DG.Tweening;
 
 public class BasicBoss : MonoBehaviour
 {
-    public Image m_healthBar;
+    public UIBar m_healthBar;
     public Image m_healthBarChase;
+    
 
     private enum EState
     {
@@ -130,10 +131,12 @@ public class BasicBoss : MonoBehaviour
         AudioManager.Instance.PlaySound("hitBoss");
         ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.small);
 
+        
         float newFillAmount = Mathf.Clamp01(m_healthComp.Health / m_healthComp.MaxHealth);
-        m_healthBar.fillAmount = newFillAmount;
+        m_healthBar.FillAmount = newFillAmount;
+        // m_healthBar.fillAmount = newFillAmount;
 
-        DOTween.Kill(this);
-        DOTween.To(() => m_healthBarChase.fillAmount, x => m_healthBarChase.fillAmount = x, newFillAmount, 0.2f).SetEase(Ease.OutQuad);
+        // DOTween.Kill(this);
+        // DOTween.To(() => m_healthBarChase.fillAmount, x => m_healthBarChase.fillAmount = x, newFillAmount, 0.2f).SetEase(Ease.OutQuad);
     }
 }

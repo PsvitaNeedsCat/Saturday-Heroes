@@ -99,6 +99,8 @@ public class Player : MonoBehaviour
     private void OnHurt()
     {
         AudioManager.Instance.PlaySound("playerHurt");
+        ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.shortSharp);
+        Debug.Log("Shake");
 
         UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
     }

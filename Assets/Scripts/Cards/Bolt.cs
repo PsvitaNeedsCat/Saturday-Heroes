@@ -14,7 +14,7 @@ public class Bolt : Card
     {
         base.Start();
         m_ID = 0;
-        cardType = ECardType.Attack;
+        m_cardType = ECardType.Attack;
 
         // raycast to the cards around, if there are effect cards adjacent, they are destroyed and the bolt's damage value is incremented
         // Forward

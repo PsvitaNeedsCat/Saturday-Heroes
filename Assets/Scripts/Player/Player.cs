@@ -99,6 +99,7 @@ public class Player : MonoBehaviour
     private void OnHurt()
     {
         AudioManager.Instance.PlaySound("playerHurt");
+        ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.shortSharp);
 
         UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
     }
@@ -195,6 +196,11 @@ public class Player : MonoBehaviour
     {
         // find the tile that is below the player
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("GridTile"));
+
+        if (hit.transform == null)
+        {
+            return false;
+        }
 
         // if that tile already has a card above it...
         Physics.Raycast(hit.transform.position, Vector3.up, out RaycastHit cardHit, 10f, LayerMask.GetMask("Card"));

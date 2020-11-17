@@ -46,9 +46,9 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""name"": ""Card Selection"",
                     ""type"": ""Value"",
                     ""id"": ""269b735c-076e-453e-b484-58895ca42a02"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.2)""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Play Card"",
@@ -56,7 +56,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""id"": ""ce281ee4-c274-4cd9-ab61-9875fa19a166"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.2)""
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -184,7 +184,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""06e4b0e6-c58d-4894-ad25-98d1618dbb7a"",
-                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -195,7 +195,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""b7ddab94-eef5-4418-bc53-08c967789810"",
-                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -239,7 +239,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6724961f-f21b-4cde-bd9f-456fe8acf9b2"",
-                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -255,6 +255,82 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Play Card"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""3a2c4ab6-057c-4e93-8dbf-b98700c86713"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""ea960c6a-3c49-423d-8229-61700e4efce8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f1c15eb-8823-4da7-bcad-e750197449c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""5fc83ced-2602-4f5f-9169-41305745cf16"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""151437fe-205a-4aff-8277-357ef4601bf4"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc6c4df1-b206-4458-8222-3f731668f5a8"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7fa5a064-6963-4dcd-8227-f03038d54532"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c24b284e-fc46-4cea-93cc-8331bc1b6406"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -298,6 +374,11 @@ public class @MasterControls : IInputActionCollection, IDisposable
         m_Player_Revive = m_Player.FindAction("Revive", throwIfNotFound: true);
         m_Player_CardSelection = m_Player.FindAction("Card Selection", throwIfNotFound: true);
         m_Player_PlayCard = m_Player.FindAction("Play Card", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Movement = m_Menu.FindAction("Movement", throwIfNotFound: true);
+        m_Menu_Submit = m_Menu.FindAction("Submit", throwIfNotFound: true);
+        m_Menu_Cancel = m_Menu.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -408,6 +489,55 @@ public class @MasterControls : IInputActionCollection, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_Movement;
+    private readonly InputAction m_Menu_Submit;
+    private readonly InputAction m_Menu_Cancel;
+    public struct MenuActions
+    {
+        private @MasterControls m_Wrapper;
+        public MenuActions(@MasterControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Menu_Movement;
+        public InputAction @Submit => m_Wrapper.m_Menu_Submit;
+        public InputAction @Cancel => m_Wrapper.m_Menu_Cancel;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+            {
+                @Movement.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnMovement;
+                @Submit.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnSubmit;
+                @Submit.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnSubmit;
+                @Submit.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnSubmit;
+                @Cancel.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnCancel;
+            }
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @Submit.started += instance.OnSubmit;
+                @Submit.performed += instance.OnSubmit;
+                @Submit.canceled += instance.OnSubmit;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
+            }
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     private int m_GamepadSchemeIndex = -1;
     public InputControlScheme GamepadScheme
     {
@@ -433,5 +563,11 @@ public class @MasterControls : IInputActionCollection, IDisposable
         void OnRevive(InputAction.CallbackContext context);
         void OnCardSelection(InputAction.CallbackContext context);
         void OnPlayCard(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

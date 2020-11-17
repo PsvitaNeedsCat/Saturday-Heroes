@@ -33,9 +33,9 @@
                     "name": "Card Selection",
                     "type": "Value",
                     "id": "269b735c-076e-453e-b484-58895ca42a02",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.2)"
+                    "interactions": ""
                 },
                 {
                     "name": "Play Card",
@@ -43,7 +43,7 @@
                     "id": "ce281ee4-c274-4cd9-ab61-9875fa19a166",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold(duration=0.2)"
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -171,7 +171,7 @@
                 {
                     "name": "negative",
                     "id": "06e4b0e6-c58d-4894-ad25-98d1618dbb7a",
-                    "path": "<Gamepad>/dpad/left",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -182,7 +182,7 @@
                 {
                     "name": "positive",
                     "id": "b7ddab94-eef5-4418-bc53-08c967789810",
-                    "path": "<Gamepad>/dpad/right",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -226,7 +226,7 @@
                 {
                     "name": "",
                     "id": "6724961f-f21b-4cde-bd9f-456fe8acf9b2",
-                    "path": "<Gamepad>/dpad/up",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -242,6 +242,82 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Play Card",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "3a2c4ab6-057c-4e93-8dbf-b98700c86713",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "ea960c6a-3c49-423d-8229-61700e4efce8",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "8f1c15eb-8823-4da7-bcad-e750197449c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "5fc83ced-2602-4f5f-9169-41305745cf16",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "151437fe-205a-4aff-8277-357ef4601bf4",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc6c4df1-b206-4458-8222-3f731668f5a8",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fa5a064-6963-4dcd-8227-f03038d54532",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c24b284e-fc46-4cea-93cc-8331bc1b6406",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

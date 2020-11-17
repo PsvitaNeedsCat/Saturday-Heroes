@@ -25,8 +25,6 @@ public class FillBar : MonoBehaviour
             Vector3 scale = transform.localScale;
             scale.y = newValue;
             transform.localScale = scale;
-
-            Debug.Log("Fill amount: " + newValue);
         }
     }
 }

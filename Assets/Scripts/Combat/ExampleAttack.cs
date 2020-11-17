@@ -7,10 +7,12 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
     public int m_damage = 1;
     public Hitbox m_hitbox;
     public float m_attackDuration = 0.5f;
+    public float m_attackCooldown= 0.5f;
     public Animator m_animator;
 
     private bool m_hitboxActive;
     private int m_attackIndex = 0;
+    private float m_cooldownTimer = 0.0f;
 
     private ManaComponent m_mana = null;
 
@@ -20,10 +22,12 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         m_mana.Init(null, ManaUpdated, ManaUpdated);
     }
 
+    
+
     public void Attack()
     {
         // Wait for attack to finish
-        if (m_hitboxActive)
+        if (m_hitboxActive || m_cooldownTimer > 0.0f)
         {
             return;
         }
@@ -32,6 +36,7 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         m_animator.SetInteger("AttackIndex", m_attackIndex);
         AudioManager.Instance.PlaySound("swing");
         m_attackIndex = (m_attackIndex == 0) ? 1 : 0;
+        m_cooldownTimer = m_attackCooldown;
 
         m_hitbox.SetListener(this);
 
@@ -69,6 +74,10 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         {
             m_hitbox.HitboxUpdate();
         }
+        else
+        {
+            m_cooldownTimer -= Time.deltaTime;
+        }
     }
 
     public void CollidedWith(Collider _collider)
@@ -76,7 +85,6 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         Parryable parryable = _collider.GetComponent<Parryable>();
         if (parryable)
         {
-            Debug.Log("Parried object, gained: " + parryable.m_manaValue);
             parryable.OnParried();
             AudioManager.Instance.PlaySound("parry");
             EffectsManager.SpawnEffect("Parry", _collider.transform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), Vector3.one, 2.0f);

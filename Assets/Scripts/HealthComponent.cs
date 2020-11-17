@@ -31,15 +31,15 @@ public class HealthComponent : MonoBehaviour
             m_health = Mathf.Clamp(value, 0, m_maxHealth);
 
             // Call functions
-            if (delta < 0)
+            if (delta < 0.0f)
             {
                 m_OnHurt?.Invoke();
             }
-            if (m_health == 0)
+            if (m_health == 0.0f)
             {
                 m_OnDeath?.Invoke();
             }
-            if (delta > 0)
+            if (delta > 0.0f)
             {
                 m_OnHealed?.Invoke();
             }
@@ -48,8 +48,26 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
+    public float MaxHealth
+    {
+        get
+        {
+            return m_maxHealth;
+        }
+        set
+        {
+            if (value <= 0.0f)
+            {
+                return;
+            }
+
+            m_maxHealth = value;
+            m_health = m_maxHealth;
+        }
+    }
+
     // Initialises the health component
-    public void Init(int _health, System.Action _onHurt = null, System.Action _onDeath = null, System.Action _onHealed = null)
+    public void Init(float _health, System.Action _onHurt = null, System.Action _onDeath = null, System.Action _onHealed = null)
     {
         // Set health
         m_health = _health;

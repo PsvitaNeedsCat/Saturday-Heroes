@@ -7,28 +7,28 @@ public class Player : MonoBehaviour
     [HideInInspector] public Vector2 m_moveDirection = Vector2.zero;
 
     private Rigidbody m_rigidbody = null;
-    private PlayerDistanceChecker m_distanceChecker = null;
+    private HealthComponent m_health = null;
+    [HideInInspector] public int m_playerNumber;
 
-    public Transform m_rotatable;
-    public Animator m_animator;
+    [SerializeField] private Transform m_rotatable;
+    [SerializeField] private Animator m_animator;
 
     [Header("Movement")]
 
-    public float m_moveForce;
-    public float m_maxSpeed;
+    [SerializeField] private float m_moveForce;
+    [SerializeField] private float m_maxSpeed;
 
-    public float m_brakingDrag = 0.9f; // Used when no directional input
-    public float m_movingDrag = 0.5f;
-    public float m_dragCoefficient = 10.0f;
+    [SerializeField] private float m_brakingDrag = 0.9f; // Used when no directional input
+    [SerializeField] private float m_movingDrag = 0.5f;
+    [SerializeField] private float m_dragCoefficient = 10.0f;
     private float m_currentDrag = 0.9f;
 
     private void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
-        m_distanceChecker = FindObjectOfType<PlayerDistanceChecker>();
 
-        HealthComponent healthComp = GetComponent<HealthComponent>();
-        healthComp.Init(3);
+        m_health = GetComponent<HealthComponent>();
+        m_health.Init(100, OnHurt, Downed, OnHealed);
     }
 
     private void FixedUpdate()
@@ -70,5 +70,27 @@ public class Player : MonoBehaviour
         playerVelocity.y = 0.0f;
 
         m_rigidbody.AddForce(-playerVelocity * m_currentDrag * m_dragCoefficient * Time.fixedDeltaTime, ForceMode.Impulse);
+    }
+
+    private void OnHurt()
+    {
+        AudioManager.Instance.PlaySound("playerHurt");
+
+        UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
+    }
+
+    private void OnHealed()
+    {
+
+    }
+
+    private void Downed()
+    {
+
+    }
+
+    private void Revived()
+    {
+
     }
 }

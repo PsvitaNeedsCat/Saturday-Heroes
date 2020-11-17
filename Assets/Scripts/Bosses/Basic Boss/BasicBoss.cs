@@ -77,7 +77,7 @@ public class BasicBoss : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(transform.forward);
         Projectile proj = Instantiate(m_projectilePrefab, transform.position, rotation).GetComponent<Projectile>();
 
-        proj.Init(m_projHitTypes, 1, 4.0f, 8.0f, ProjectileHitPlayer);
+        proj.Init(m_projHitTypes, 10, 4.0f, 8.0f, ProjectileHitPlayer);
     }
 
     private void ProjectileHitPlayer(Hurtbox _player, Projectile _projectile)

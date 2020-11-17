@@ -8,6 +8,7 @@ public class CardManager : MonoBehaviour
     public const int kBolt = 0;
     public const int kDiamondEffect = 1;
     public const int kHeartEffect = 2;
+    public const int kUniqueCardCount = 3;
 
     public struct CardData
     {
@@ -215,5 +216,11 @@ public class CardManager : MonoBehaviour
     public static CardData GetSelectedCard(int _player)
     {
         return m_cards[_player][m_selectedCard[_player]];
+    }
+
+    public static void GiveRandomCard(int _player)
+    {
+        m_cards[_player].Add(new CardData(Random.Range(0, kUniqueCardCount)));
+        UpdateUI(_player);
     }
 }

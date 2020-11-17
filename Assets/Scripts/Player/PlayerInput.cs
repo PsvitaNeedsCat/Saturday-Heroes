@@ -31,4 +31,20 @@ public class PlayerInput : MonoBehaviour
 
         m_controls.Player.Enable();
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            CardManager.SelectNextCard(m_playerNumber);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            CardManager.SelectPreviousCard(m_playerNumber);
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            CardManager.UseSelectedCard(m_playerNumber);
+        }
+    }
 }

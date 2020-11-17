@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BasicBoss : MonoBehaviour
 {
     public Image m_healthBar;
+    public Image m_healthBarChase;
+    private float m_chaseAmount = 1.0f;
 
     private enum EState
     {
@@ -98,6 +101,13 @@ public class BasicBoss : MonoBehaviour
     {
         AudioManager.Instance.PlaySound("hitBoss");
 
-        m_healthBar.fillAmount = Mathf.Clamp01(m_healthComp.Health / m_healthComp.MaxHealth);
+        float newFillAmount = Mathf.Clamp01(m_healthComp.Health / m_healthComp.MaxHealth);
+        m_healthBar.fillAmount = newFillAmount;
+
+        DOTween.Kill(this);
+        DOTween.To(() => m_healthBarChase.fillAmount, x => m_healthBarChase.fillAmount = x, newFillAmount, 0.2f).SetEase(Ease.OutQuad);
+
+        //m_chaseAmount = Mathf.Lerp(m_chaseAmount, newFillAmount, Time.deltaTime);
+        //m_healthBarChase.fillAmount = m_chaseAmount;
     }
 }

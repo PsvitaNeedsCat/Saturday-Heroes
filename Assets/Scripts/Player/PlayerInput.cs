@@ -41,24 +41,11 @@ public class PlayerInput : MonoBehaviour
         m_controls.Player.Revive.performed += _ => StartCoroutine(m_player.TryRevive());
         m_controls.Player.Revive.canceled += _ => m_player.StopReviving();
 
-        m_controls.Player.CardSelection.performed += ctx =>
-        {
-            Debug.Log("CardSelection: " + ctx);
-            if (ctx.ReadValue<float>() > 0f)
-            {
-                CardManager.SelectNextCard(m_playerNumber);
-            }
-            else
-            {
-                CardManager.SelectPreviousCard(m_playerNumber);
-            }
-        };
+        // Card selection
+        m_controls.Player.CardSelection.performed += ctx => ChangeCardSelection(ctx.ReadValue<int>());
 
-        m_controls.Player.PlayCard.performed += _ =>
-        {
-            Debug.Log("PlayCard");
-            m_player.AttemptPlaceCard(CardManager.GetSelectedCard(m_playerNumber));
-        };
+        // Play card
+        m_controls.Player.PlayCard.performed += _ => m_player.AttemptPlaceCard(CardManager.GetSelectedCard(m_playerNumber));
 
         m_controls.Player.Enable();
     }
@@ -72,5 +59,18 @@ public class PlayerInput : MonoBehaviour
         }
 
         m_controls.Player.Disable();
+    }
+
+    private void ChangeCardSelection(int _val)
+    {
+        Debug.Log("CardSelection: " + _val);
+        if (_val > 0f)
+        {
+            CardManager.SelectNextCard(m_playerNumber);
+        }
+        else
+        {
+            CardManager.SelectPreviousCard(m_playerNumber);
+        }
     }
 }

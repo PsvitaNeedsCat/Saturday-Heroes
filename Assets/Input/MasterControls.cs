@@ -48,7 +48,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""id"": ""269b735c-076e-453e-b484-58895ca42a02"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.2)""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Play Card"",
@@ -56,7 +56,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""id"": ""ce281ee4-c274-4cd9-ab61-9875fa19a166"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.2)""
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [

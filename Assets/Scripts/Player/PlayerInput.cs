@@ -43,6 +43,7 @@ public class PlayerInput : MonoBehaviour
 
         m_controls.Player.CardSelection.performed += ctx =>
         {
+            Debug.Log("CardSelection: " + ctx);
             if (ctx.ReadValue<float>() > 0f)
             {
                 CardManager.SelectNextCard(m_playerNumber);
@@ -55,7 +56,8 @@ public class PlayerInput : MonoBehaviour
 
         m_controls.Player.PlayCard.performed += _ =>
         {
-            CardManager.UseSelectedCard(m_playerNumber);
+            Debug.Log("PlayCard");
+            m_player.AttemptPlaceCard(CardManager.GetSelectedCard(m_playerNumber));
         };
 
         m_controls.Player.Enable();

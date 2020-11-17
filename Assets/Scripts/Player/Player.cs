@@ -59,7 +59,6 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-
     }
 
     private void Move()
@@ -190,5 +189,24 @@ public class Player : MonoBehaviour
 
         m_reviveBar.transform.parent.parent.gameObject.SetActive(isBarActive);
         m_reviveBar.FillAmount = (isBarActive) ? 1.0f - (m_revivingTimer / m_kTimeToRevive) : 0.0f;
+    }
+    
+    public bool AttemptPlaceCard(CardManager.CardData _card)
+    {
+        // find the tile that is below the player
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("GridTile"));
+
+        // if that tile already has a card above it...
+        Physics.Raycast(hit.transform.position, Vector3.up, out RaycastHit cardHit, 10f, LayerMask.GetMask("Card"));
+        if (cardHit.transform)
+        {
+            // report failure to place a new card false
+            return false;
+        }
+
+        // otherwise instantiate the new card right above the tile
+        Instantiate(_card.GetPrefab(), hit.transform.position + Vector3.up * 0.1f, Quaternion.identity);
+        CardManager.UseSelectedCard(m_playerNumber);
+        return true;
     }
 }

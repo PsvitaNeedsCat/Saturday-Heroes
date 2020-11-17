@@ -18,9 +18,9 @@ TagManager:
   - Pushbox
   - Hurtbox
   - Hitbox
-  - 
-  - 
-  - 
+  - Card
+  - GridTile
+  - PlayerProjectile
   - 
   - 
   - 

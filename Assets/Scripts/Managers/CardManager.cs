@@ -16,7 +16,10 @@ public class CardManager : MonoBehaviour
         {
             return GetCardSprite(m_ID);
         }
-
+        public GameObject GetPrefab()
+        {
+            return GetCardPrefab(m_ID);
+        }
         public CardData(int _ID)
         {
             m_ID = _ID;
@@ -24,8 +27,9 @@ public class CardManager : MonoBehaviour
     }
 
 
-    [SerializeField] private RectTransform[] m_cardsInterface = new RectTransform[2];
-    [SerializeField] private Sprite[] m_cardImages = new Sprite[2];
+    [SerializeField] private RectTransform[] m_cardsInterface;
+    [SerializeField] private Sprite[] m_cardImages;
+    [SerializeField] private GameObject[] m_cardPrefabs;
     private static List<Image>[] m_cardSpritesOnUI = new List<Image>[2];
     private static int[] m_selectedCard = { 0, 0 };
     public static List<CardData>[] m_cards = new List<CardData>[2];
@@ -39,6 +43,11 @@ public class CardManager : MonoBehaviour
     public static Sprite GetCardSprite(int _ID)
     {
         return m_instance.m_cardImages[_ID];
+    }
+
+    public static GameObject GetCardPrefab(int _ID)
+    {
+        return m_instance.m_cardPrefabs[_ID];
     }
 
     private void Awake()
@@ -179,6 +188,8 @@ public class CardManager : MonoBehaviour
         // incrememnt _player's selected card
         m_selectedCard[_player]++;
 
+        //Debug.Log("DEBUG: SelectNextCard");
+
         UpdateUI(_player);
     }
 
@@ -187,6 +198,8 @@ public class CardManager : MonoBehaviour
         // decrememnt _player's selected card
         m_selectedCard[_player]--;
 
+        //Debug.Log("DEBUG: SelectPreviousCard");
+
         UpdateUI(_player);
     }
 
@@ -194,6 +207,13 @@ public class CardManager : MonoBehaviour
     {
         m_cards[_player].RemoveAt(m_selectedCard[_player]);
 
+        //Debug.Log("DEBUG: UseSelectedCard");
+
         UpdateUI(_player);
+    }
+
+    public static CardData GetSelectedCard(int _player)
+    {
+        return m_cards[_player][m_selectedCard[_player]];
     }
 }

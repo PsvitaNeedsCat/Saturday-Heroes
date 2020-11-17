@@ -37,4 +37,25 @@ public class UIManager : MonoBehaviour
     {
         m_playerManaBars[_playerNum].fillAmount = (_mana == 0.0f) ? 0.0f : _mana / _maxMana;
     }
+
+    public void SwitchRight(int _player)
+    {
+        CardManager.SelectNextCard(_player);
+    }
+
+    public void SwitchLeft(int _player)
+    {
+        CardManager.SelectPreviousCard(_player);
+    }
+
+    public void PlaceCard(int _player)
+    {
+        foreach(Player player in FindObjectsOfType<Player>())
+        {
+            if (player.m_playerNumber == _player)
+            {
+                player.AttemptPlaceCard(CardManager.GetSelectedCard(_player));
+            }
+        }
+    }
 }

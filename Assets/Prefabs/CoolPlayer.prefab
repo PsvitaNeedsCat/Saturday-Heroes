@@ -456,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_damage: 1
   m_hitbox: {fileID: 6611619809603015251}
-  m_attackDuration: 0.5
+  m_attackDuration: 0.2
   m_animator: {fileID: 6611619809515598667}
 --- !u!114 &648841115529253739
 MonoBehaviour:

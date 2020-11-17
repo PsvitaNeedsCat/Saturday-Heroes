@@ -46,7 +46,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""name"": ""Card Selection"",
                     ""type"": ""Value"",
                     ""id"": ""269b735c-076e-453e-b484-58895ca42a02"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 },

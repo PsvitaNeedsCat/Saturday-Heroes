@@ -42,7 +42,7 @@ public class PlayerInput : MonoBehaviour
         m_controls.Player.Revive.canceled += _ => m_player.StopReviving();
 
         // Card selection
-        m_controls.Player.CardSelection.performed += ctx => ChangeCardSelection(ctx.ReadValue<int>());
+        m_controls.Player.CardSelection.performed += ctx => ChangeCardSelection(ctx.ReadValue<float>());
 
         // Play card
         m_controls.Player.PlayCard.performed += _ => m_player.AttemptPlaceCard(CardManager.GetSelectedCard(m_playerNumber));
@@ -61,7 +61,7 @@ public class PlayerInput : MonoBehaviour
         m_controls.Player.Disable();
     }
 
-    private void ChangeCardSelection(int _val)
+    private void ChangeCardSelection(float _val)
     {
         Debug.Log("CardSelection: " + _val);
         if (_val > 0f)

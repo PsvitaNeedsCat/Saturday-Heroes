@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasicBoss : MonoBehaviour
 {
+    public Image m_healthBar;
+
     private enum EState
     {
         idle,
@@ -15,6 +18,7 @@ public class BasicBoss : MonoBehaviour
     private float m_firingTimer = 0.0f;
 
     private GameObject m_projectilePrefab = null;
+    private HealthComponent m_healthComp;
 
     private EDamageType[] m_projHitTypes =
     {
@@ -25,8 +29,8 @@ public class BasicBoss : MonoBehaviour
     {
         m_projectilePrefab = Resources.Load<GameObject>("prefabs/Bosses/Basic Boss/BossProjectile");
 
-        HealthComponent healthComp = GetComponent<HealthComponent>();
-        healthComp.Init(10, OnHurt);
+        m_healthComp = GetComponent<HealthComponent>();
+        m_healthComp.Init(10, OnHurt);
     }
 
     private void Update()
@@ -93,5 +97,7 @@ public class BasicBoss : MonoBehaviour
     private void OnHurt()
     {
         AudioManager.Instance.PlaySound("hitBoss");
+
+        m_healthBar.fillAmount = Mathf.Clamp01(m_healthComp.Health / m_healthComp.MaxHealth);
     }
 }

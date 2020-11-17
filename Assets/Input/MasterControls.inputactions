@@ -28,6 +28,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold(duration=0.2)"
+                },
+                {
+                    "name": "Card Selection",
+                    "type": "Button",
+                    "id": "269b735c-076e-453e-b484-58895ca42a02",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2)"
+                },
+                {
+                    "name": "Play Card",
+                    "type": "Button",
+                    "id": "ce281ee4-c274-4cd9-ab61-9875fa19a166",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2)"
                 }
             ],
             "bindings": [
@@ -61,6 +77,50 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Revive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "c3d249b9-a934-4fd2-a4cd-454386729233",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Card Selection",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "06e4b0e6-c58d-4894-ad25-98d1618dbb7a",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Card Selection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "b7ddab94-eef5-4418-bc53-08c967789810",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Card Selection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6724961f-f21b-4cde-bd9f-456fe8acf9b2",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Play Card",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

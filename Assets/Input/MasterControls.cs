@@ -41,6 +41,22 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Hold(duration=0.2)""
+                },
+                {
+                    ""name"": ""Card Selection"",
+                    ""type"": ""Button"",
+                    ""id"": ""269b735c-076e-453e-b484-58895ca42a02"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2)""
+                },
+                {
+                    ""name"": ""Play Card"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce281ee4-c274-4cd9-ab61-9875fa19a166"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2)""
                 }
             ],
             ""bindings"": [
@@ -74,6 +90,50 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Revive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""c3d249b9-a934-4fd2-a4cd-454386729233"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""06e4b0e6-c58d-4894-ad25-98d1618dbb7a"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""b7ddab94-eef5-4418-bc53-08c967789810"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6724961f-f21b-4cde-bd9f-456fe8acf9b2"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Play Card"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -115,6 +175,8 @@ public class @MasterControls : IInputActionCollection, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Revive = m_Player.FindAction("Revive", throwIfNotFound: true);
+        m_Player_CardSelection = m_Player.FindAction("Card Selection", throwIfNotFound: true);
+        m_Player_PlayCard = m_Player.FindAction("Play Card", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -167,6 +229,8 @@ public class @MasterControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Revive;
+    private readonly InputAction m_Player_CardSelection;
+    private readonly InputAction m_Player_PlayCard;
     public struct PlayerActions
     {
         private @MasterControls m_Wrapper;
@@ -174,6 +238,8 @@ public class @MasterControls : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Revive => m_Wrapper.m_Player_Revive;
+        public InputAction @CardSelection => m_Wrapper.m_Player_CardSelection;
+        public InputAction @PlayCard => m_Wrapper.m_Player_PlayCard;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -192,6 +258,12 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 @Revive.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRevive;
                 @Revive.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRevive;
                 @Revive.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRevive;
+                @CardSelection.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCardSelection;
+                @CardSelection.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCardSelection;
+                @CardSelection.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCardSelection;
+                @PlayCard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayCard;
+                @PlayCard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayCard;
+                @PlayCard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayCard;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -205,6 +277,12 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 @Revive.started += instance.OnRevive;
                 @Revive.performed += instance.OnRevive;
                 @Revive.canceled += instance.OnRevive;
+                @CardSelection.started += instance.OnCardSelection;
+                @CardSelection.performed += instance.OnCardSelection;
+                @CardSelection.canceled += instance.OnCardSelection;
+                @PlayCard.started += instance.OnPlayCard;
+                @PlayCard.performed += instance.OnPlayCard;
+                @PlayCard.canceled += instance.OnPlayCard;
             }
         }
     }
@@ -232,5 +310,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnRevive(InputAction.CallbackContext context);
+        void OnCardSelection(InputAction.CallbackContext context);
+        void OnPlayCard(InputAction.CallbackContext context);
     }
 }

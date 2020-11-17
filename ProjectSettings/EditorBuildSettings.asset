@@ -5,8 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Release/MainMenu.unity
+    guid: 35c677a527617b34b944f2e4cf69913e
+  - enabled: 1
+    path: Assets/Scenes/Test/callum-test.unity
+    guid: 1006bccbd03232f4a91c189b93abd667
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 33f04f987d95b0a44b0590fc02e3842e, type: 2}

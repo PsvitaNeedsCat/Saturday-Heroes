@@ -20,6 +20,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Revive",
+                    "type": "Button",
+                    "id": "974c1635-890b-438c-a7ce-60e8d3297c55",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2)"
                 }
             ],
             "bindings": [
@@ -37,11 +45,22 @@
                 {
                     "name": "",
                     "id": "0bbc38c0-c37c-4d11-a6ad-03b91f76f357",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bce523ed-d2b6-4b6b-b28f-26de9a006065",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Revive",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

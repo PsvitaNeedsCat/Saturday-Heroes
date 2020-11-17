@@ -5,11 +5,13 @@ using DG.Tweening;
 
 public class HealthComponent : MonoBehaviour
 {
+    [HideInInspector] public bool m_isDead = false;
     public Renderer m_hitFlashRenderer;
 
     private float m_health = 3.0f;
     private float m_maxHealth = 3.0f;
     private bool m_isInvincible = false;
+    private float m_invincibleTimer = 0.0f;
 
     private System.Action m_OnHurt;
     private System.Action m_OnHealed;
@@ -23,6 +25,11 @@ public class HealthComponent : MonoBehaviour
         }
         set
         {
+            if (m_isDead)
+            {
+                return;
+            }
+
             float delta = value - m_health;
             
             if (delta < 0 && m_isInvincible)
@@ -85,5 +92,24 @@ public class HealthComponent : MonoBehaviour
         m_OnHurt = _onHurt;
         m_OnDeath = _onDeath;
         m_OnHealed = _onHealed;
+    }
+
+    public void SetIFramesTimer(float _timer)
+    {
+        m_invincibleTimer = _timer;
+
+        m_isInvincible = _timer > 0.0f;
+    }
+
+    private void Update()
+    {
+        if (m_isInvincible)
+        {
+            m_invincibleTimer -= Time.deltaTime;
+            if (m_invincibleTimer <= 0.0f)
+            {
+                m_isInvincible = false;
+            }
+        }
     }
 }

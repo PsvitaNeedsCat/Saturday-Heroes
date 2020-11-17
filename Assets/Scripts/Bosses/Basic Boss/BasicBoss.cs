@@ -8,7 +8,6 @@ public class BasicBoss : MonoBehaviour
 {
     public Image m_healthBar;
     public Image m_healthBarChase;
-    private float m_chaseAmount = 1.0f;
 
     private enum EState
     {
@@ -106,8 +105,5 @@ public class BasicBoss : MonoBehaviour
 
         DOTween.Kill(this);
         DOTween.To(() => m_healthBarChase.fillAmount, x => m_healthBarChase.fillAmount = x, newFillAmount, 0.2f).SetEase(Ease.OutQuad);
-
-        //m_chaseAmount = Mathf.Lerp(m_chaseAmount, newFillAmount, Time.deltaTime);
-        //m_healthBarChase.fillAmount = m_chaseAmount;
     }
 }

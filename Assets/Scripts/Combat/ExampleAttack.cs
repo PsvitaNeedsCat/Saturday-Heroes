@@ -19,7 +19,6 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
     private void Awake()
     {
         m_mana = GetComponent<ManaComponent>();
-        m_mana.Init(null, ManaUpdated, ManaUpdated);
     }
 
     public void Attack()
@@ -98,12 +97,6 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
                 hurtbox.ApplyDamage(m_damage);
             }
         }
-    }
-
-    // Temp
-    private void ManaUpdated()
-    {
-        UIManager.Instance.UpdatePlayerManaBar(GetComponent<Player>().m_playerNumber, m_mana.Mana, m_mana.MaxMana);
     }
 
     private void OnGUI()

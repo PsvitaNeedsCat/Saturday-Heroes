@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hurtbox : CombatVolume
 {
     public EColliderShape m_shape;
+    public HealthComponent m_healthComp;
 
     private Collider m_collider;
     private EColliderState m_colliderState;
@@ -17,7 +18,11 @@ public class Hurtbox : CombatVolume
 
     public void ApplyDamage(float _amount)
     {
-        Debug.Log("Hurtbox took " + _amount + " damage");
+        // Debug.Log("Hurtbox took " + _amount + " damage");
+        if (m_healthComp)
+        {
+            m_healthComp.Health -= _amount;
+        }
     }
 
     private void OnDrawGizmos()

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
-    private int m_health = 3;
-    private int m_maxHealth = 3;
+    private float m_health = 3.0f;
+    private float m_maxHealth = 3.0f;
     private bool m_isInvincible = false;
 
     private System.Action m_OnHurt;
     private System.Action m_OnHealed;
     private System.Action m_OnDeath;
 
-    public int Health
+    public float Health
     {
         get
         {
@@ -20,7 +20,7 @@ public class HealthComponent : MonoBehaviour
         }
         set
         {
-            int delta = value - m_health;
+            float delta = value - m_health;
             
             if (delta < 0 && m_isInvincible)
             {
@@ -43,6 +43,8 @@ public class HealthComponent : MonoBehaviour
             {
                 m_OnHealed?.Invoke();
             }
+
+            Debug.Log("Player health now: " + m_health);
         }
     }
 

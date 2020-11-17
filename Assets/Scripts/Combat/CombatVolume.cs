@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Parent class for hitbox & hurtbox
 
+public enum EDamageType
+{
+    player,
+    enemy
+}
+
+// Parent class for hitbox & hurtbox
 public class CombatVolume : MonoBehaviour
 {
     public enum EColliderShape
@@ -18,12 +24,6 @@ public class CombatVolume : MonoBehaviour
         closed,     // Can't collide (disabled)
         open,       // Can collide (enabled)
         colliding   // Currently colliding
-    }
-
-    public enum EDamageType
-    {
-        player,
-        enemy
     }
 
     public EDamageType m_damageType;

@@ -15,9 +15,10 @@ public class BasicBoss : MonoBehaviour
     private float m_firingTimer = 0.0f;
 
     private GameObject m_projectilePrefab = null;
-    private System.Type[] m_projHitTypes =
+
+    private EDamageType[] m_projHitTypes =
     {
-        typeof(Player),
+        EDamageType.player,
     };
 
     private void Awake()
@@ -76,14 +77,16 @@ public class BasicBoss : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(transform.forward);
         Projectile proj = Instantiate(m_projectilePrefab, transform.position, rotation).GetComponent<Projectile>();
 
-        proj.Init(m_projHitTypes, 1, 0.1f, 3.0f, ProjectileHitPlayer);
+        proj.Init(m_projHitTypes, 1, 4.0f, 8.0f, ProjectileHitPlayer);
     }
 
-    private void ProjectileHitPlayer(Collider _player, Projectile _projectile)
+    private void ProjectileHitPlayer(Hurtbox _player, Projectile _projectile)
     {
         Destroy(_projectile.gameObject);
 
-        HealthComponent healthComp = _player.GetComponent<HealthComponent>();
-        healthComp.Health -= _projectile.m_damage;
+        _player.ApplyDamage(_projectile.m_damage);
+
+        //HealthComponent healthComp = _player.GetComponent<HealthComponent>();
+        //healthComp.Health -= _projectile.m_damage;
     }
 }

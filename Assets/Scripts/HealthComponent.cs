@@ -58,8 +58,6 @@ public class HealthComponent : MonoBehaviour
             {
                 m_OnHealed?.Invoke();
             }
-
-            Debug.Log("Player health now: " + m_health);
         }
     }
 

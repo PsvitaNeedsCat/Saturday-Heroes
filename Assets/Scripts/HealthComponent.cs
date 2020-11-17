@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class HealthComponent : MonoBehaviour
 {
     [HideInInspector] public bool m_isDead = false;
+    public Renderer m_hitFlashRenderer;
 
     private float m_health = 3.0f;
     private float m_maxHealth = 3.0f;
@@ -42,6 +44,11 @@ public class HealthComponent : MonoBehaviour
             if (delta < 0.0f)
             {
                 m_OnHurt?.Invoke();
+                DOTween.Kill(this);
+                DOTween.To(() => m_hitFlashRenderer.material.GetFloat("_FlashAmount"), x => m_hitFlashRenderer.material.SetFloat("_FlashAmount", x), 1.0f, 0.1f).OnComplete(() =>
+                {
+                    DOTween.To(() => m_hitFlashRenderer.material.GetFloat("_FlashAmount"), x => m_hitFlashRenderer.material.SetFloat("_FlashAmount", x), 0.0f, 0.2f);
+                });
             }
             if (m_health == 0.0f)
             {

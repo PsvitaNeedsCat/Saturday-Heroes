@@ -22,6 +22,7 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
 
         m_animator.SetTrigger("Attack");
         m_animator.SetInteger("AttackIndex", m_attackIndex);
+        AudioManager.Instance.PlaySound("swing");
         m_attackIndex = (m_attackIndex == 0) ? 1 : 0;
 
         m_hitbox.SetListener(this);
@@ -69,6 +70,7 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         {
             Debug.Log("Parried object, gained: " + parryable.m_manaValue);
             parryable.OnParried();
+            AudioManager.Instance.PlaySound("parry");
         }
 
         Hurtbox hurtbox = _collider.GetComponent<Hurtbox>();

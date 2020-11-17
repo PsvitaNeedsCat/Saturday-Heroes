@@ -142,7 +142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moveDirection: {x: 0, y: 0}
-  m_otherPlayer: {fileID: 0}
   m_playerNumber: 0
   m_rotatable: {fileID: 6611619808432554581}
   m_animator: {fileID: 6611619809515598667}
@@ -193,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c98a6ca59bcab40939ee1c95c83a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_isDead: 0
+  m_hitFlashRenderer: {fileID: 6611619809515598664}
 --- !u!1 &6611619808411244497
 GameObject:
   m_ObjectHideFlags: 0
@@ -12273,7 +12272,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 16d56bbd63792de4f81fbe3c5bb8c567, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

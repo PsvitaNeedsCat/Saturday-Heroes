@@ -15,6 +15,12 @@ public class Billboard : MonoBehaviour
 
     private void LateUpdate()
     {
+        BillboardObject();
+    }
+
+    public void BillboardObject()
+    {
+        m_cam = Camera.main;
         m_billboardedObject.LookAt(m_billboardedObject.position + m_cam.transform.rotation * Vector3.forward, m_cam.transform.rotation * Vector3.up);
     }
 }

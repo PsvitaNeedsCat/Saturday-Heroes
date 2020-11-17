@@ -7,17 +7,28 @@ public class Player : MonoBehaviour
     [HideInInspector] public Vector2 m_moveDirection = Vector2.zero;
 
     private Rigidbody m_rigidbody = null;
-    private PlayerDistanceChecker m_distanceChecker = null;
-    private float m_speed = 0.0f;
+    private HealthComponent m_health = null;
+    [HideInInspector] public int m_playerNumber;
 
-    // Const
-    private const float m_kBaseSpeed = 1.0f;
-    private const float m_kRadiusSpeed = 1.8f;
+    [SerializeField] private Transform m_rotatable;
+    [SerializeField] private Animator m_animator;
+
+    [Header("Movement")]
+
+    [SerializeField] private float m_moveForce;
+    [SerializeField] private float m_maxSpeed;
+
+    [SerializeField] private float m_brakingDrag = 0.9f; // Used when no directional input
+    [SerializeField] private float m_movingDrag = 0.5f;
+    [SerializeField] private float m_dragCoefficient = 10.0f;
+    private float m_currentDrag = 0.9f;
 
     private void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
-        m_distanceChecker = FindObjectOfType<PlayerDistanceChecker>();
+
+        m_health = GetComponent<HealthComponent>();
+        m_health.Init(100, OnHurt, Downed, OnHealed);
     }
 
     private void FixedUpdate()
@@ -27,24 +38,59 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        if (m_moveDirection == Vector2.zero)
+        // If no directional input, the player is 'braking'
+        bool playerBraking = (m_moveDirection.magnitude < 0.01f);
+
+        Vector3 playerVelocity = m_rigidbody.velocity;
+        playerVelocity.y = 0.0f;
+
+        m_animator.SetFloat("XSpeed", playerVelocity.normalized.x);
+        m_animator.SetFloat("ZSpeed", playerVelocity.normalized.z);
+
+        float playerHorSpeed = playerVelocity.magnitude;
+
+        // Only apply move speed if under max speed, and there is directional input
+        if ((playerHorSpeed < m_maxSpeed) && !playerBraking)
         {
-            return;
+            Vector3 moveDirection = Camera.main.RelativeDirection(m_moveDirection);
+            m_rotatable.transform.forward = moveDirection;
+
+            Vector3 moveVector = m_moveForce * moveDirection.normalized * Time.fixedDeltaTime;
+            m_rigidbody.AddForce(moveVector, ForceMode.Impulse);
         }
 
-        if (m_distanceChecker)
-        {
-            m_speed = (m_distanceChecker.m_withinRadius) ? m_kRadiusSpeed : m_kBaseSpeed;
-        }
-        else
-        {
-            m_speed = m_kBaseSpeed;
-        }
+        ApplyDrag(playerBraking);
+    }
 
-        Vector3 moveDirection = Camera.main.RelativeDirection(m_moveDirection);
+    private void ApplyDrag(bool _braking)
+    {
+        m_currentDrag = (_braking) ? m_brakingDrag : m_movingDrag;
 
-        transform.forward = moveDirection;
+        Vector3 playerVelocity = m_rigidbody.velocity;
+        playerVelocity.y = 0.0f;
 
-        m_rigidbody.AddForce(moveDirection.normalized * m_speed, ForceMode.Impulse);
+        m_rigidbody.AddForce(-playerVelocity * m_currentDrag * m_dragCoefficient * Time.fixedDeltaTime, ForceMode.Impulse);
+    }
+
+    private void OnHurt()
+    {
+        AudioManager.Instance.PlaySound("playerHurt");
+
+        UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
+    }
+
+    private void OnHealed()
+    {
+
+    }
+
+    private void Downed()
+    {
+
+    }
+
+    private void Revived()
+    {
+
     }
 }

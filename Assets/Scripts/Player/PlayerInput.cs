@@ -14,6 +14,8 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         m_player = GetComponent<Player>();
+        m_player.m_playerNumber = m_playerNumber;
+
         m_controls = new MasterControls();
 
         m_controls.devices = new[] { Gamepad.all[m_playerNumber] };

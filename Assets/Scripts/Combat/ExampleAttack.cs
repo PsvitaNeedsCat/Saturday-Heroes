@@ -7,8 +7,10 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
     public int m_damage = 1;
     public Hitbox m_hitbox;
     public float m_attackDuration = 0.5f;
+    public Animator m_animator;
 
     private bool m_hitboxActive;
+    private int m_attackIndex = 0;
 
     public void Attack()
     {
@@ -17,6 +19,11 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         {
             return;
         }
+
+        m_animator.SetTrigger("Attack");
+        m_animator.SetInteger("AttackIndex", m_attackIndex);
+        AudioManager.Instance.PlaySound("swing");
+        m_attackIndex = (m_attackIndex == 0) ? 1 : 0;
 
         m_hitbox.SetListener(this);
 
@@ -58,8 +65,15 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
 
     public void CollidedWith(Collider _collider)
     {
-        Hurtbox hurtbox = _collider.GetComponent<Hurtbox>();
+        Parryable parryable = _collider.GetComponent<Parryable>();
+        if (parryable)
+        {
+            Debug.Log("Parried object, gained: " + parryable.m_manaValue);
+            parryable.OnParried();
+            AudioManager.Instance.PlaySound("parry");
+        }
 
+        Hurtbox hurtbox = _collider.GetComponent<Hurtbox>();
         if (hurtbox)
         {
             if (hurtbox.m_damageType != m_hitbox.m_damageType)
@@ -67,6 +81,8 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
                 hurtbox.ApplyDamage(m_damage);
             }
         }
+
+        
     }
 
     private void OnGUI()

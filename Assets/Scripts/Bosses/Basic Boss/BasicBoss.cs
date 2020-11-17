@@ -26,7 +26,7 @@ public class BasicBoss : MonoBehaviour
         m_projectilePrefab = Resources.Load<GameObject>("prefabs/Bosses/Basic Boss/BossProjectile");
 
         HealthComponent healthComp = GetComponent<HealthComponent>();
-        healthComp.Init(10);
+        healthComp.Init(10, OnHurt);
     }
 
     private void Update()
@@ -88,5 +88,10 @@ public class BasicBoss : MonoBehaviour
 
         //HealthComponent healthComp = _player.GetComponent<HealthComponent>();
         //healthComp.Health -= _projectile.m_damage;
+    }
+
+    private void OnHurt()
+    {
+        AudioManager.Instance.PlaySound("hitBoss");
     }
 }

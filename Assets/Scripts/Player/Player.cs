@@ -198,6 +198,11 @@ public class Player : MonoBehaviour
         // find the tile that is below the player
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("GridTile"));
 
+        if (hit.transform == null)
+        {
+            return false;
+        }
+
         // if that tile already has a card above it...
         Physics.Raycast(hit.transform.position, Vector3.up, out RaycastHit cardHit, 10f, LayerMask.GetMask("Card"));
         if (cardHit.transform)

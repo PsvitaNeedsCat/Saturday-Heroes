@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     
     // Reviving
     private const float m_kReviveRadius = 1.0f;
-    private const float m_kTimeToRevive = 5.0f;
+    private const float m_kTimeToRevive = 1.5f;
     private float m_revivingTimer = 0.0f;
 
     [SerializeField] private Transform m_rotatable;
@@ -144,7 +144,16 @@ public class Player : MonoBehaviour
             }
 
             float playerDistance = (m_otherPlayer.transform.position - transform.position).magnitude;
-            m_revivingTimer += Time.deltaTime * ((playerDistance <= m_kReviveRadius) ? -1.0f : 1.0f);
+
+            if (playerDistance <= m_kReviveRadius)
+            {
+                m_revivingTimer -= Time.deltaTime;
+            }
+            else
+            {
+                m_revivingTimer = m_kTimeToRevive;
+            }
+
             m_revivingTimer = Mathf.Clamp(m_revivingTimer, 0.0f, m_kTimeToRevive);
 
             m_revivingIcon.enabled = playerDistance <= m_kReviveRadius;

@@ -11,21 +11,24 @@ public class BasicBoss : MonoBehaviour
 
     private enum EState
     {
+        init,
         idle,
         attacking,
     };
-    private EState m_state = EState.idle;
+    private EState m_state = EState.init;
 
+    [Header("Basic Attack")]
     private float m_fireRate = 1.0f;
     private float m_firingTimer = 0.0f;
-
-    private GameObject m_projectilePrefab = null;
-    private HealthComponent m_healthComp;
-
     private EDamageType[] m_projHitTypes =
     {
         EDamageType.player,
     };
+    private GameObject m_projectilePrefab = null;
+    [SerializeField] private Transform[] m_projectileSpawns = new Transform[] { };
+
+    [Header("Components")]
+    private HealthComponent m_healthComp;
 
     private void Awake()
     {
@@ -39,15 +42,21 @@ public class BasicBoss : MonoBehaviour
     {
         switch (m_state)
         {
+            case EState.init:
+                {
+                    InitState();
+                    break;
+                }
+
             case EState.idle:
                 {
-                    Idle();
+                    IdleState();
                     break;
                 }
 
             case EState.attacking:
                 {
-                    Attacking();
+                    AttackingState();
                     break;
                 }
 
@@ -58,14 +67,32 @@ public class BasicBoss : MonoBehaviour
         }
     }
 
-    // Called every frame the boss is idle
-    private void Idle()
+    // Called every frame the boss is in init state
+    private void InitState()
     {
+        StartCoroutine(Roar());
+
+        m_state = EState.idle;
+    }
+
+    // Plays a roar clip and waits for it to be over before changing states
+    private IEnumerator Roar()
+    {
+        AudioManager.Instance.PlaySound("roar");
+
+        yield return new WaitForSeconds(2.8f);
+
         m_state = EState.attacking;
     }
 
+    // Called every frame the boss is idle
+    private void IdleState()
+    {
+        // Doesn't do anything in idle
+    }
+
     // Called every frame the boss is attacking
-    private void Attacking()
+    private void AttackingState()
     {
         m_firingTimer += Time.deltaTime;
 
@@ -81,7 +108,9 @@ public class BasicBoss : MonoBehaviour
     private void FireProjectile()
     {
         Quaternion rotation = Quaternion.LookRotation(transform.forward);
-        Projectile proj = Instantiate(m_projectilePrefab, transform.position, rotation).GetComponent<Projectile>();
+        int positionIndex = Random.Range(0, m_projectileSpawns.Length - 1);
+        Vector3 position = m_projectileSpawns[positionIndex].position;
+        Projectile proj = Instantiate(m_projectilePrefab, position, rotation).GetComponent<Projectile>();
 
         proj.Init(m_projHitTypes, 10, 4.0f, 8.0f, ProjectileHitPlayer);
     }

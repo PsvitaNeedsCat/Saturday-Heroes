@@ -38,6 +38,14 @@ public class Hurtbox : CombatVolume
             Vector3 boxExtents = boxCollider.size;
             Gizmos.DrawCube(Vector3.zero, new Vector3(boxExtents.x, boxExtents.y, boxExtents.z));
         }
+        else if (m_shape == EColliderShape.capsule)
+        {
+            CapsuleCollider capsuleCollider = m_collider as CapsuleCollider;
+            float radius = capsuleCollider.radius;
+            float halfHeight = capsuleCollider.height / 2.0f;
+            Gizmos.DrawSphere(Vector3.zero + Vector3.up * (halfHeight - radius), radius);
+            Gizmos.DrawSphere(Vector3.zero + Vector3.down * (halfHeight - radius), radius);
+        }
         // Sphere for now
         else
         {

@@ -9,7 +9,8 @@ public class CombatVolume : MonoBehaviour
     public enum EColliderShape
     {
         cube,
-        sphere
+        sphere,
+        capsule
     }
 
     public enum EColliderState

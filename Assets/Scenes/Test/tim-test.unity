@@ -3730,6 +3730,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4528864970879380632, guid: 8ae19f9309f90c74d9c90134e09429a4, type: 3}
+      propertyPath: m_playerNumber
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5298376999411650778, guid: 8ae19f9309f90c74d9c90134e09429a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.832
@@ -3777,6 +3781,10 @@ PrefabInstance:
     - target: {fileID: 5298376999411650779, guid: 8ae19f9309f90c74d9c90134e09429a4, type: 3}
       propertyPath: m_Name
       value: CoolPlayerTwo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298376999411650779, guid: 8ae19f9309f90c74d9c90134e09429a4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ae19f9309f90c74d9c90134e09429a4, type: 3}
@@ -6317,6 +6325,10 @@ PrefabInstance:
     - target: {fileID: 6611619809305370854, guid: a7a239cfecadcfd4e891d35ba449adb7, type: 3}
       propertyPath: m_Name
       value: CoolPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611619809305370854, guid: a7a239cfecadcfd4e891d35ba449adb7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6611619809305370855, guid: a7a239cfecadcfd4e891d35ba449adb7, type: 3}
       propertyPath: m_LocalPosition.x

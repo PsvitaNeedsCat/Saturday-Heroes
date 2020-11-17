@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         Vector3 playerVelocity = m_rigidbody.velocity;
         playerVelocity.y = 0.0f;
 
-        m_animator.SetFloat("Speed", playerVelocity.magnitude / m_maxSpeed);
+        m_animator.SetFloat("Speed", playerVelocity.z);
 
         float playerHorSpeed = playerVelocity.magnitude;
 

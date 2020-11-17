@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
         if ((playerHorSpeed < m_maxSpeed) && !playerBraking)
         {
             Vector3 moveDirection = Camera.main.RelativeDirection(m_moveDirection);
-            m_rotatable.transform.forward = moveDirection;
+            //m_rotatable.transform.forward = moveDirection;
 
             Vector3 moveVector = m_moveForce * moveDirection.normalized * Time.fixedDeltaTime;
             m_rigidbody.AddForce(moveVector, ForceMode.Impulse);
@@ -114,6 +114,8 @@ public class Player : MonoBehaviour
         m_health.m_isDead = true;
 
         m_playerInput.SetControls(false);
+
+        m_animator.SetBool("Downed", true);
     }
 
     private void Revived()
@@ -125,6 +127,8 @@ public class Player : MonoBehaviour
         UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
 
         m_playerInput.SetControls(true);
+
+        m_animator.SetBool("Downed", false);
     }
 
     public IEnumerator TryRevive()

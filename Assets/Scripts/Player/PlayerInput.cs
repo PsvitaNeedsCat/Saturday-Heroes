@@ -18,6 +18,12 @@ public class PlayerInput : MonoBehaviour
 
         m_controls = new MasterControls();
 
+        if (Gamepad.all.Count < m_playerNumber + 1)
+        {
+            Debug.LogWarning("Controller not connected for player: " + m_playerNumber);
+            return;
+        }
+
         m_controls.devices = new[] { Gamepad.all[m_playerNumber] };
 
         // Movement

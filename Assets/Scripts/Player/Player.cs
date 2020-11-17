@@ -6,8 +6,9 @@ public class Player : MonoBehaviour
 {
     [HideInInspector] public Vector2 m_moveDirection = Vector2.zero;
 
-    [SerializeField] private Player m_otherPlayer = null;
+    [SerializeField] private SpriteRenderer m_revivingIcon = null;
 
+    private Player m_otherPlayer = null;
     private Rigidbody m_rigidbody = null;
     private HealthComponent m_health = null;
     private PlayerInput m_playerInput = null;
@@ -133,9 +134,17 @@ public class Player : MonoBehaviour
 
         while (m_attemptingRevive)
         {
+            if (!m_otherPlayer.m_health.m_isDead)
+            {
+                StopReviving();
+                break;
+            }
+
             float playerDistance = (m_otherPlayer.transform.position - transform.position).magnitude;
             m_revivingTimer += Time.deltaTime * ((playerDistance <= m_kReviveRadius) ? -1.0f : 1.0f);
             m_revivingTimer = Mathf.Clamp(m_revivingTimer, 0.0f, m_kTimeToRevive);
+
+            m_revivingIcon.enabled = playerDistance <= m_kReviveRadius;
 
             if (m_revivingTimer <= 0.0f)
             {
@@ -150,5 +159,9 @@ public class Player : MonoBehaviour
     public void StopReviving()
     {
         m_attemptingRevive = false;
+
+        m_revivingTimer = m_kTimeToRevive;
+
+        m_revivingIcon.enabled = false;
     }
 }

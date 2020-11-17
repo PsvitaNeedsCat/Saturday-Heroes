@@ -167,4 +167,9 @@ public class Player : MonoBehaviour
 
         m_revivingIcon.enabled = false;
     }
+
+    private void UpdateReviveIcon()
+    {
+
+    }
 }

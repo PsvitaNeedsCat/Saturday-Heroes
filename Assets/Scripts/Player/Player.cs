@@ -217,6 +217,7 @@ public class Player : MonoBehaviour
         // otherwise instantiate the new card right above the tile
         Instantiate(_card.GetPrefab(), hit.transform.position + Vector3.up * 0.1f, Quaternion.identity);
         CardManager.UseSelectedCard(m_playerNumber);
+        m_animator.SetTrigger("PlaceCard");
         return true;
     }
 

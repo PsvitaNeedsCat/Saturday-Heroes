@@ -99,6 +99,7 @@ public class BasicBoss : MonoBehaviour
     private void OnHurt()
     {
         AudioManager.Instance.PlaySound("hitBoss");
+        ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.small);
 
         float newFillAmount = Mathf.Clamp01(m_healthComp.Health / m_healthComp.MaxHealth);
         m_healthBar.fillAmount = newFillAmount;

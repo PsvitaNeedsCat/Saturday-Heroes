@@ -335,6 +335,104 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Console"",
+            ""id"": ""dcb3cf2f-24dd-46c2-9040-b85149821e1a"",
+            ""actions"": [
+                {
+                    ""name"": ""Toggle Console"",
+                    ""type"": ""Button"",
+                    ""id"": ""770e8835-a91f-48c7-91ee-ae0d69b542cb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Handle Input"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ea468ef-8371-4a0c-a7db-9ebc767f83ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Switch Commands"",
+                    ""type"": ""Value"",
+                    ""id"": ""0e138902-a475-4f02-82a5-b8237c6c1062"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ec4c73a3-0839-4b33-be93-fceadbc26c23"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Toggle Console"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""261367fa-448e-474f-971b-52f2e9c769b0"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Handle Input"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e296f0f-cd43-4c81-92a9-c4e52a55d209"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Handle Input"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrows"",
+                    ""id"": ""3268b49e-ad46-4dc2-b96e-23186c80dec3"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Commands"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c2371112-ef21-4f54-aaae-57948c5ec1b3"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Switch Commands"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""aa247ac2-05e8-4e9a-b1fa-26ad700702b0"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Switch Commands"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -379,6 +477,11 @@ public class @MasterControls : IInputActionCollection, IDisposable
         m_Menu_Movement = m_Menu.FindAction("Movement", throwIfNotFound: true);
         m_Menu_Submit = m_Menu.FindAction("Submit", throwIfNotFound: true);
         m_Menu_Cancel = m_Menu.FindAction("Cancel", throwIfNotFound: true);
+        // Console
+        m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
+        m_Console_ToggleConsole = m_Console.FindAction("Toggle Console", throwIfNotFound: true);
+        m_Console_HandleInput = m_Console.FindAction("Handle Input", throwIfNotFound: true);
+        m_Console_SwitchCommands = m_Console.FindAction("Switch Commands", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -538,6 +641,55 @@ public class @MasterControls : IInputActionCollection, IDisposable
         }
     }
     public MenuActions @Menu => new MenuActions(this);
+
+    // Console
+    private readonly InputActionMap m_Console;
+    private IConsoleActions m_ConsoleActionsCallbackInterface;
+    private readonly InputAction m_Console_ToggleConsole;
+    private readonly InputAction m_Console_HandleInput;
+    private readonly InputAction m_Console_SwitchCommands;
+    public struct ConsoleActions
+    {
+        private @MasterControls m_Wrapper;
+        public ConsoleActions(@MasterControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleConsole => m_Wrapper.m_Console_ToggleConsole;
+        public InputAction @HandleInput => m_Wrapper.m_Console_HandleInput;
+        public InputAction @SwitchCommands => m_Wrapper.m_Console_SwitchCommands;
+        public InputActionMap Get() { return m_Wrapper.m_Console; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ConsoleActions set) { return set.Get(); }
+        public void SetCallbacks(IConsoleActions instance)
+        {
+            if (m_Wrapper.m_ConsoleActionsCallbackInterface != null)
+            {
+                @ToggleConsole.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnToggleConsole;
+                @ToggleConsole.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnToggleConsole;
+                @ToggleConsole.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnToggleConsole;
+                @HandleInput.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnHandleInput;
+                @HandleInput.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnHandleInput;
+                @HandleInput.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnHandleInput;
+                @SwitchCommands.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSwitchCommands;
+                @SwitchCommands.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSwitchCommands;
+                @SwitchCommands.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSwitchCommands;
+            }
+            m_Wrapper.m_ConsoleActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ToggleConsole.started += instance.OnToggleConsole;
+                @ToggleConsole.performed += instance.OnToggleConsole;
+                @ToggleConsole.canceled += instance.OnToggleConsole;
+                @HandleInput.started += instance.OnHandleInput;
+                @HandleInput.performed += instance.OnHandleInput;
+                @HandleInput.canceled += instance.OnHandleInput;
+                @SwitchCommands.started += instance.OnSwitchCommands;
+                @SwitchCommands.performed += instance.OnSwitchCommands;
+                @SwitchCommands.canceled += instance.OnSwitchCommands;
+            }
+        }
+    }
+    public ConsoleActions @Console => new ConsoleActions(this);
     private int m_GamepadSchemeIndex = -1;
     public InputControlScheme GamepadScheme
     {
@@ -569,5 +721,11 @@ public class @MasterControls : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+    }
+    public interface IConsoleActions
+    {
+        void OnToggleConsole(InputAction.CallbackContext context);
+        void OnHandleInput(InputAction.CallbackContext context);
+        void OnSwitchCommands(InputAction.CallbackContext context);
     }
 }

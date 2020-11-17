@@ -22,8 +22,6 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         m_mana.Init(null, ManaUpdated, ManaUpdated);
     }
 
-    
-
     public void Attack()
     {
         // Wait for attack to finish

@@ -63,7 +63,6 @@ public class PlayerInput : MonoBehaviour
 
     private void ChangeCardSelection(float _val)
     {
-        Debug.Log("CardSelection: " + _val);
         if (_val > 0f)
         {
             CardManager.SelectNextCard(m_playerNumber);

@@ -64,8 +64,14 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
 
     public void CollidedWith(Collider _collider)
     {
-        Hurtbox hurtbox = _collider.GetComponent<Hurtbox>();
+        Parryable parryable = _collider.GetComponent<Parryable>();
+        if (parryable)
+        {
+            Debug.Log("Parried object, gained: " + parryable.m_manaValue);
+            parryable.OnParried();
+        }
 
+        Hurtbox hurtbox = _collider.GetComponent<Hurtbox>();
         if (hurtbox)
         {
             if (hurtbox.m_damageType != m_hitbox.m_damageType)
@@ -73,6 +79,8 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
                 hurtbox.ApplyDamage(m_damage);
             }
         }
+
+        
     }
 
     private void OnGUI()

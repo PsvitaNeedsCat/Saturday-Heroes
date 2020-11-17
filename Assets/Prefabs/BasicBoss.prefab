@@ -681,6 +681,7 @@ GameObject:
   - component: {fileID: 7091949891593704746}
   - component: {fileID: 2224277951316841838}
   - component: {fileID: 7691127}
+  - component: {fileID: 401910421}
   m_Layer: 0
   m_Name: BossAnimations
   m_TagString: Untagged
@@ -766,6 +767,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_billboardedObject: {fileID: 7091949891593704746}
+--- !u!95 &401910421
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797776054447702877}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a7ef229af0ec6545a8519392f7f956c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5467380771238111754
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class ManaComponent : MonoBehaviour
 
             m_mana = value;
 
-            if (m_mana >= m_maxMana)
+            while (m_mana >= m_maxMana)
             {
                 m_mana -= m_maxMana;
 

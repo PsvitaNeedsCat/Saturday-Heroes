@@ -844,6 +844,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &175989751 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1056708169, guid: 92a49398692e79e4a84f71c5e26a0299, type: 3}
+  m_PrefabInstance: {fileID: 1112286854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &216687948
 Mesh:
   m_ObjectHideFlags: 0
@@ -1008,6 +1019,27 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &216739521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 969257036, guid: 92a49398692e79e4a84f71c5e26a0299, type: 3}
+  m_PrefabInstance: {fileID: 1112286854}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &216739526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216739521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3adf10ecfb4bddd4fada64b71663c650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_primaryBar: {fileID: 175989751}
+  m_chaseBar: {fileID: 1938388859}
+  m_chaseTime: 0.1
+  m_targetAmount: 1
 --- !u!1 &226365920
 GameObject:
   m_ObjectHideFlags: 0
@@ -3642,6 +3674,10 @@ PrefabInstance:
       propertyPath: m_healthBarChase
       value: 
       objectReference: {fileID: 1938388859}
+    - target: {fileID: 8048772883975461618, guid: 92a49398692e79e4a84f71c5e26a0299, type: 3}
+      propertyPath: m_healthBar
+      value: 
+      objectReference: {fileID: 216739526}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92a49398692e79e4a84f71c5e26a0299, type: 3}
 --- !u!1 &1138084291
@@ -3838,6 +3874,7 @@ MonoBehaviour:
   m_damage: 1
   m_hitbox: {fileID: 54030197}
   m_attackDuration: 0.5
+  m_attackCooldown: 0.5
   m_animator: {fileID: 0}
 --- !u!54 &1209651792
 Rigidbody:

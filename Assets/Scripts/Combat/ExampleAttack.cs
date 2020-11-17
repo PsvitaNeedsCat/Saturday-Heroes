@@ -21,8 +21,6 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         m_mana = GetComponent<ManaComponent>();
     }
 
-    
-
     public void Attack()
     {
         // Wait for attack to finish

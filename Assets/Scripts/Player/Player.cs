@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     {
         m_rigidbody = GetComponent<Rigidbody>();
         m_distanceChecker = FindObjectOfType<PlayerDistanceChecker>();
+
+        HealthComponent healthComp = GetComponent<HealthComponent>();
+        healthComp.Init(3);
     }
 
     private void FixedUpdate()

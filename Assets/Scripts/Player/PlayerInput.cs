@@ -18,16 +18,28 @@ public class PlayerInput : MonoBehaviour
 
         m_controls = new MasterControls();
 
+        if (Gamepad.all.Count < m_playerNumber + 1)
+        {
+            Debug.LogWarning("Controller not connected for player: " + m_playerNumber);
+            return;
+        }
+
         m_controls.devices = new[] { Gamepad.all[m_playerNumber] };
 
+        // Movement
         m_controls.Player.Movement.performed += ctx => m_player.m_moveDirection = ctx.ReadValue<Vector2>();
         m_controls.Player.Movement.canceled += ctx => m_player.m_moveDirection = ctx.ReadValue<Vector2>();
 
+        // Attack
         m_attack = GetComponent<ExampleAttack>();
         if (m_attack)
         {
             m_controls.Player.Attack.performed += _ => m_attack.Attack();
         }
+
+        // Revive
+        m_controls.Player.Revive.performed += _ => StartCoroutine(m_player.TryRevive());
+        m_controls.Player.Revive.canceled += _ => m_player.StopReviving();
 
         m_controls.Player.CardSelection.performed += ctx =>
         {
@@ -47,5 +59,16 @@ public class PlayerInput : MonoBehaviour
         };
 
         m_controls.Player.Enable();
+    }
+
+    public void SetControls(bool _active)
+    {
+        if (_active)
+        {
+            m_controls.Player.Enable();
+            return;
+        }
+
+        m_controls.Player.Disable();
     }
 }

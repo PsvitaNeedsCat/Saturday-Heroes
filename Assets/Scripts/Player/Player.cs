@@ -6,9 +6,19 @@ public class Player : MonoBehaviour
 {
     [HideInInspector] public Vector2 m_moveDirection = Vector2.zero;
 
+    [SerializeField] private SpriteRenderer m_revivingIcon = null;
+
+    private Player m_otherPlayer = null;
     private Rigidbody m_rigidbody = null;
     private HealthComponent m_health = null;
+    private PlayerInput m_playerInput = null;
     [HideInInspector] public int m_playerNumber;
+    private bool m_attemptingRevive = false;
+    
+    // Reviving
+    private const float m_kReviveRadius = 1.0f;
+    private const float m_kTimeToRevive = 5.0f;
+    private float m_revivingTimer = 0.0f;
 
     [SerializeField] private Transform m_rotatable;
     [SerializeField] private Animator m_animator;
@@ -27,8 +37,23 @@ public class Player : MonoBehaviour
     {
         m_rigidbody = GetComponent<Rigidbody>();
 
+        m_playerInput = GetComponent<PlayerInput>();
+
         m_health = GetComponent<HealthComponent>();
         m_health.Init(100, OnHurt, Downed, OnHealed);
+    }
+
+    private void Start()
+    {
+        Player[] players = FindObjectsOfType<Player>();
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].m_playerNumber != m_playerNumber)
+            {
+                m_otherPlayer = players[i];
+                break;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -45,8 +70,7 @@ public class Player : MonoBehaviour
         Vector3 playerVelocity = m_rigidbody.velocity;
         playerVelocity.y = 0.0f;
 
-        m_animator.SetFloat("XSpeed", playerVelocity.normalized.x);
-        m_animator.SetFloat("ZSpeed", playerVelocity.normalized.z);
+        m_animator.SetFloat("Speed", playerVelocity.z);
 
         float playerHorSpeed = playerVelocity.magnitude;
 
@@ -54,7 +78,7 @@ public class Player : MonoBehaviour
         if ((playerHorSpeed < m_maxSpeed) && !playerBraking)
         {
             Vector3 moveDirection = Camera.main.RelativeDirection(m_moveDirection);
-            m_rotatable.transform.forward = moveDirection;
+            //m_rotatable.transform.forward = moveDirection;
 
             Vector3 moveVector = m_moveForce * moveDirection.normalized * Time.fixedDeltaTime;
             m_rigidbody.AddForce(moveVector, ForceMode.Impulse);
@@ -87,11 +111,61 @@ public class Player : MonoBehaviour
 
     private void Downed()
     {
+        m_health.m_isDead = true;
 
+        m_playerInput.SetControls(false);
+
+        m_animator.SetBool("Downed", true);
     }
 
     private void Revived()
     {
+        m_health.m_isDead = false;
+        m_health.Health = m_health.MaxHealth;
+        m_health.SetIFramesTimer(3.0f);
 
+        UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
+
+        m_playerInput.SetControls(true);
+
+        m_animator.SetBool("Downed", false);
+    }
+
+    public IEnumerator TryRevive()
+    {
+        m_revivingTimer = m_kTimeToRevive;
+        m_attemptingRevive = true;
+
+        while (m_attemptingRevive)
+        {
+            if (!m_otherPlayer.m_health.m_isDead)
+            {
+                StopReviving();
+                break;
+            }
+
+            float playerDistance = (m_otherPlayer.transform.position - transform.position).magnitude;
+            m_revivingTimer += Time.deltaTime * ((playerDistance <= m_kReviveRadius) ? -1.0f : 1.0f);
+            m_revivingTimer = Mathf.Clamp(m_revivingTimer, 0.0f, m_kTimeToRevive);
+
+            m_revivingIcon.enabled = playerDistance <= m_kReviveRadius;
+
+            if (m_revivingTimer <= 0.0f)
+            {
+                // Revived!
+                m_otherPlayer.Revived();
+            }
+
+            yield return null;
+        }
+    }
+
+    public void StopReviving()
+    {
+        m_attemptingRevive = false;
+
+        m_revivingTimer = m_kTimeToRevive;
+
+        m_revivingIcon.enabled = false;
     }
 }

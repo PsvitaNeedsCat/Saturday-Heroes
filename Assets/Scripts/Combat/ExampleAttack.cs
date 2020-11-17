@@ -12,6 +12,14 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
     private bool m_hitboxActive;
     private int m_attackIndex = 0;
 
+    private ManaComponent m_mana = null;
+
+    private void Awake()
+    {
+        m_mana = GetComponent<ManaComponent>();
+        m_mana.Init(null, ManaUpdated, ManaUpdated);
+    }
+
     public void Attack()
     {
         // Wait for attack to finish
@@ -71,6 +79,9 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
             Debug.Log("Parried object, gained: " + parryable.m_manaValue);
             parryable.OnParried();
             AudioManager.Instance.PlaySound("parry");
+            EffectsManager.SpawnEffect("Parry", _collider.transform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), Vector3.one, 2.0f);
+
+            m_mana.Mana += parryable.m_manaValue;
         }
 
         Hurtbox hurtbox = _collider.GetComponent<Hurtbox>();
@@ -81,8 +92,12 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
                 hurtbox.ApplyDamage(m_damage);
             }
         }
+    }
 
-        
+    // Temp
+    private void ManaUpdated()
+    {
+        UIManager.Instance.UpdatePlayerManaBar(GetComponent<Player>().m_playerNumber, m_mana.Mana, m_mana.MaxMana);
     }
 
     private void OnGUI()

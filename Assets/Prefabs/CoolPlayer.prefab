@@ -168,6 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1065775298974305696}
   - component: {fileID: 5161700614685892774}
+  - component: {fileID: 7965679813042696706}
   m_Layer: 10
   m_Name: Fill Image
   m_TagString: Untagged
@@ -228,7 +229,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 0a015c13fbbe2de49b04001d99db9b6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -240,6 +241,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7965679813042696706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393652850501463419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f8cacf766533845974bde8c5da1464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2561960750588340642
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moveDirection: {x: 0, y: 0}
-  m_revivingIcon: {fileID: 1156148689970338500}
+  m_reviveBar: {fileID: 7965679813042696706}
   m_playerNumber: 0
   m_rotatable: {fileID: 0}
   m_animator: {fileID: 6611619809515598667}
@@ -540,7 +553,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0a015c13fbbe2de49b04001d99db9b6f, type: 3}
   m_Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
   m_FlipX: 0
@@ -783,7 +796,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1111676133459567343
 Transform:
   m_ObjectHideFlags: 0

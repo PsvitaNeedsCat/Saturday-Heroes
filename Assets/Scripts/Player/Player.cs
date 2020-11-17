@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     [HideInInspector] public Vector2 m_moveDirection = Vector2.zero;
 
-    [SerializeField] private SpriteRenderer m_revivingIcon = null;
+    [SerializeField] private FillBar m_reviveBar = null;
 
     private Player m_otherPlayer = null;
     private Rigidbody m_rigidbody = null;
@@ -155,8 +155,8 @@ public class Player : MonoBehaviour
             }
 
             m_revivingTimer = Mathf.Clamp(m_revivingTimer, 0.0f, m_kTimeToRevive);
-
-            m_revivingIcon.enabled = playerDistance <= m_kReviveRadius;
+            
+            UpdateReviveIcon();
 
             if (m_revivingTimer <= 0.0f)
             {
@@ -170,15 +170,24 @@ public class Player : MonoBehaviour
 
     public void StopReviving()
     {
+        if (!m_attemptingRevive)
+        {
+            return;
+        }
+
         m_attemptingRevive = false;
 
         m_revivingTimer = m_kTimeToRevive;
-
-        m_revivingIcon.enabled = false;
+        
+        UpdateReviveIcon();
     }
 
     private void UpdateReviveIcon()
     {
+        bool withinRadius = (m_otherPlayer.transform.position - transform.position).magnitude <= m_kReviveRadius;
+        bool isBarActive = m_revivingTimer > 0.0f && m_attemptingRevive && withinRadius;
 
+        m_reviveBar.transform.parent.parent.gameObject.SetActive(isBarActive);
+        m_reviveBar.FillAmount = (isBarActive) ? 1.0f - (m_revivingTimer / m_kTimeToRevive) : 0.0f;
     }
 }

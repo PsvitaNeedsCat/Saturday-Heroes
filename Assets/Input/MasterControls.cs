@@ -41,6 +41,14 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Play Card"",
+                    ""type"": ""Button"",
+                    ""id"": ""aeb6d4c1-e787-4aee-aa7a-05838bcc14bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,6 +106,61 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""action"": ""Card Selection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""c784bd7a-d800-4a57-8bdb-9b54cb06e54c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""fb93ba1d-f9df-49ec-871c-b26c43044aad"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""cafd445b-8198-44bf-ac4d-275c0f642ea0"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f39172f-0f65-40c0-8534-da7191738573"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Play Card"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18a41977-9703-4418-8d2e-ef12e99903d8"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Play Card"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -137,6 +200,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_CardSelection = m_Player.FindAction("Card Selection", throwIfNotFound: true);
+        m_Player_PlayCard = m_Player.FindAction("Play Card", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -189,6 +253,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_CardSelection;
+    private readonly InputAction m_Player_PlayCard;
     public struct PlayerActions
     {
         private @MasterControls m_Wrapper;
@@ -196,6 +261,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @CardSelection => m_Wrapper.m_Player_CardSelection;
+        public InputAction @PlayCard => m_Wrapper.m_Player_PlayCard;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -214,6 +280,9 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 @CardSelection.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCardSelection;
                 @CardSelection.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCardSelection;
                 @CardSelection.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCardSelection;
+                @PlayCard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayCard;
+                @PlayCard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayCard;
+                @PlayCard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayCard;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -227,6 +296,9 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 @CardSelection.started += instance.OnCardSelection;
                 @CardSelection.performed += instance.OnCardSelection;
                 @CardSelection.canceled += instance.OnCardSelection;
+                @PlayCard.started += instance.OnPlayCard;
+                @PlayCard.performed += instance.OnPlayCard;
+                @PlayCard.canceled += instance.OnPlayCard;
             }
         }
     }
@@ -254,5 +326,6 @@ public class @MasterControls : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnCardSelection(InputAction.CallbackContext context);
+        void OnPlayCard(InputAction.CallbackContext context);
     }
 }

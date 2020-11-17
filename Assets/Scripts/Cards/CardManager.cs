@@ -24,11 +24,11 @@ public class CardManager : MonoBehaviour
     }
 
 
-    [SerializeField] private RectTransform[] m_cardsInterface;
-    private static List<Image>[] m_cardSpritesOnUI;
-    [SerializeField] private Sprite[] m_cardImages;
+    [SerializeField] private RectTransform[] m_cardsInterface = new RectTransform[2];
+    [SerializeField] private Sprite[] m_cardImages = new Sprite[2];
+    private static List<Image>[] m_cardSpritesOnUI = new List<Image>[2];
     private static int[] m_selectedCard = { 0, 0 };
-    public static List<CardData>[] m_cards;
+    public static List<CardData>[] m_cards = new List<CardData>[2];
 
     private static CardManager m_instance;
     public static CardManager GetInstance()
@@ -52,7 +52,7 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             // define each player's cards.
-            m_cards[i] = new List<CardData>() { new CardData(kBolt), new CardData(kBolt), new CardData(kBolt) };
+            m_cards[i] = new List<CardData>() { new CardData(kBolt), new CardData(kBolt), new CardData(kBolt), new CardData(kDiamondEffect), new CardData(kDiamondEffect), new CardData(kHeartEffect) };
 
             // set up sprite references to make changing UI easy in future.
             m_cardSpritesOnUI[i] = new List<Image>
@@ -64,6 +64,8 @@ public class CardManager : MonoBehaviour
                 m_cardsInterface[i].GetChild(2).GetComponent<Image>(),
                 m_cardsInterface[i].GetChild(0).GetComponent<Image>(),
             };
+
+            UpdateUI(i);
         }
     }
 
@@ -92,40 +94,84 @@ public class CardManager : MonoBehaviour
             m_selectedCard[_player] = 0;
         }
 
-        // leftmost card
-        int index = m_selectedCard[_player] - 2;
-        if (index < 0)
+        // center card
+        if (m_cards[_player].Count > 0)
         {
-            index += m_cards[_player].Count;
+            m_cardSpritesOnUI[_player][2].sprite = m_cards[_player][m_selectedCard[_player]].GetSprite();
+            Color temp = m_cardSpritesOnUI[_player][2].color;
+            temp.a = 1;
+            m_cardSpritesOnUI[_player][2].color = temp;
         }
-        m_cardSpritesOnUI[_player][0].sprite = m_cards[_player][index].GetSprite();
+        else
+        {
+            Color temp = m_cardSpritesOnUI[_player][2].color;
+            temp.a = 0;
+            m_cardSpritesOnUI[_player][2].color = temp;
+        }
 
         // left card
-        index = m_selectedCard[_player] - 1;
-        if (index < 0)
+        int index = m_selectedCard[_player] - 1;
+        if (index >= 0)
         {
-            index += m_cards[_player].Count;
+            m_cardSpritesOnUI[_player][1].sprite = m_cards[_player][index].GetSprite();
+            Color temp = m_cardSpritesOnUI[_player][1].color;
+            temp.a = 1;
+            m_cardSpritesOnUI[_player][1].color = temp;
         }
-        m_cardSpritesOnUI[_player][1].sprite = m_cards[_player][index].GetSprite();
-
-        // center card
-        m_cardSpritesOnUI[_player][2].sprite = m_cards[_player][m_selectedCard[_player]].GetSprite();
+        else
+        {
+            Color temp = m_cardSpritesOnUI[_player][1].color;
+            temp.a = 0;
+            m_cardSpritesOnUI[_player][1].color = temp;
+        }
 
         // right card
         index = m_selectedCard[_player] + 1;
-        if (index >= m_cards[_player].Count)
+        if (index < m_cards[_player].Count)
         {
-            index -= m_cards[_player].Count;
+            m_cardSpritesOnUI[_player][3].sprite = m_cards[_player][index].GetSprite();
+            Color temp = m_cardSpritesOnUI[_player][3].color;
+            temp.a = 1;
+            m_cardSpritesOnUI[_player][3].color = temp;
         }
-        m_cardSpritesOnUI[_player][3].sprite = m_cards[_player][index].GetSprite();
+        else
+        {
+            Color temp = m_cardSpritesOnUI[_player][3].color;
+            temp.a = 0;
+            m_cardSpritesOnUI[_player][3].color = temp;
+        }
+
+        // leftmost card
+        index = m_selectedCard[_player] - 2;
+        if (index >= 0)
+        {
+            m_cardSpritesOnUI[_player][0].sprite = m_cards[_player][index].GetSprite();
+            Color temp = m_cardSpritesOnUI[_player][0].color;
+            temp.a = 1;
+            m_cardSpritesOnUI[_player][0].color = temp;
+        }
+        else
+        {
+            Color temp = m_cardSpritesOnUI[_player][0].color;
+            temp.a = 0;
+            m_cardSpritesOnUI[_player][0].color = temp;
+        }
 
         // rightmost card
         index = m_selectedCard[_player] + 2;
-        if (index >= m_cards[_player].Count)
+        if (index < m_cards[_player].Count)
         {
-            index -= m_cards[_player].Count;
+            m_cardSpritesOnUI[_player][4].sprite = m_cards[_player][index].GetSprite();
+            Color temp = m_cardSpritesOnUI[_player][4].color;
+            temp.a = 1;
+            m_cardSpritesOnUI[_player][4].color = temp;
         }
-        m_cardSpritesOnUI[_player][4].sprite = m_cards[_player][index].GetSprite();
+        else
+        {
+            Color temp = m_cardSpritesOnUI[_player][4].color;
+            temp.a = 0;
+            m_cardSpritesOnUI[_player][4].color = temp;
+        }
     }
 
     public static void SelectNextCard(int _player)

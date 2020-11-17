@@ -29,22 +29,23 @@ public class PlayerInput : MonoBehaviour
             m_controls.Player.Attack.performed += _ => m_attack.Attack();
         }
 
-        m_controls.Player.Enable();
-    }
+        m_controls.Player.CardSelection.performed += ctx =>
+        {
+            if (ctx.ReadValue<float>() > 0f)
+            {
+                CardManager.SelectNextCard(m_playerNumber);
+            }
+            else
+            {
+                CardManager.SelectPreviousCard(m_playerNumber);
+            }
+        };
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            CardManager.SelectNextCard(m_playerNumber);
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            CardManager.SelectPreviousCard(m_playerNumber);
-        }
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        m_controls.Player.PlayCard.performed += _ =>
         {
             CardManager.UseSelectedCard(m_playerNumber);
-        }
+        };
+
+        m_controls.Player.Enable();
     }
 }

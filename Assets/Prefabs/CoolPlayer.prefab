@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 6611619808180656853}
   - component: {fileID: 3215409961247218874}
   - component: {fileID: 648841115529253739}
+  - component: {fileID: 2702807203727194056}
   m_Layer: 10
   m_Name: CoolPlayerController
   m_TagString: Untagged
@@ -293,6 +294,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isDead: 0
   m_hitFlashRenderer: {fileID: 6611619809515598664}
+--- !u!114 &2702807203727194056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3215409961247218855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccd7166089525c4b8b48dd4e9062df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6611619809305370854
 GameObject:
   m_ObjectHideFlags: 0

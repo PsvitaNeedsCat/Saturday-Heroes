@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Image[] m_playerHealthBars = new Image[2];
+    [SerializeField] private Image[] m_playerManaBars = new Image[2];
 
     private static UIManager s_instance;
     public static UIManager Instance
@@ -30,5 +31,10 @@ public class UIManager : MonoBehaviour
     public void UpdatePlayerHealthBar(int _playerNum, float _health, float _maxHealth)
     {
         m_playerHealthBars[_playerNum].fillAmount = (_health == 0.0f) ? 0.0f : _health / _maxHealth;
+    }
+
+    public void UpdatePlayerManaBar(int _playerNum, float _mana, float _maxMana)
+    {
+        m_playerManaBars[_playerNum].fillAmount = (_mana == 0.0f) ? 0.0f : _mana / _maxMana;
     }
 }

@@ -71,5 +71,6 @@ public class PlayerInput : MonoBehaviour
         {
             CardManager.SelectPreviousCard(m_playerNumber);
         }
+        AudioManager.Instance.PlaySound("rotateCards");
     }
 }

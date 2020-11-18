@@ -12,13 +12,15 @@ public class BasicBoss : MonoBehaviour
     public Image m_diamondEffectDurationIndicator;
     public Color m_diamondEffectColor;
 
-    private enum EState
+    public enum EState
     {
         init,
         idle,
         attacking,
+        rippingReality,
+        wormholeAttack,
     };
-    private EState m_state = EState.init;
+    [HideInInspector] public EState m_state = EState.init;
 
     [Header("Basic Attack")]
     private float m_fireRate = 1.0f;
@@ -29,6 +31,13 @@ public class BasicBoss : MonoBehaviour
     };
     private GameObject m_projectilePrefab = null;
     [SerializeField] private Transform[] m_projectileSpawns = new Transform[] { };
+    private float m_basicAttackLength = 10.0f;
+
+    [Header("Wormhole Attack")]
+    private Wormhole m_wormhole = null;
+    private GameObject m_wormholePrefab = null;
+    [SerializeField] private Transform m_wormholeSpawn = null;
+    private GameObject m_wormholeProjectilePrefab = null;
 
     [Header("Components")]
     private HealthComponent m_healthComp;
@@ -40,9 +49,12 @@ public class BasicBoss : MonoBehaviour
 
     private void Awake()
     {
-        m_projectilePrefab = Resources.Load<GameObject>("prefabs/Bosses/Basic Boss/BossProjectile");
+        m_projectilePrefab = Resources.Load<GameObject>("Prefabs/Bosses/Basic Boss/BossProjectile");
 
         m_spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+        m_wormholePrefab = Resources.Load<GameObject>("Prefabs/Bosses/Basic Boss/Wormhole");
+        m_wormholeProjectilePrefab = Resources.Load<GameObject>("Prefabs/Bosses/Basic Boss/WormholeProjectile");
 
         m_healthComp = GetComponent<HealthComponent>();
         m_healthComp.Init(50, OnHurt);
@@ -70,6 +82,18 @@ public class BasicBoss : MonoBehaviour
                     break;
                 }
 
+            case EState.rippingReality:
+                {
+                    RippingReality();
+                    break;
+                }
+
+            case EState.wormholeAttack:
+                {
+                    WormholeAttack();
+                    break;
+                }
+
             default:
                 {
                     break;
@@ -81,19 +105,21 @@ public class BasicBoss : MonoBehaviour
     // Called every frame the boss is in init state
     private void InitState()
     {
-        StartCoroutine(Roar());
-
-        m_state = EState.idle;
-    }
-
-    // Plays a roar clip and waits for it to be over before changing states
-    private IEnumerator Roar()
-    {
         AudioManager.Instance.PlaySound("roar");
 
-        yield return new WaitForSeconds(2.8f);
+        StartCoroutine(Wait(2.8f, () => m_state = EState.rippingReality));
 
-        m_state = EState.attacking;
+        if (m_state == EState.init)
+        {
+            m_state = EState.idle;
+        }
+    }
+
+    private IEnumerator Wait(float _seconds, System.Action _action)
+    {
+        yield return new WaitForSeconds(_seconds);
+
+        _action.Invoke();
     }
 
     // Called every frame the boss is idle
@@ -113,6 +139,36 @@ public class BasicBoss : MonoBehaviour
 
             FireProjectile();
         }
+    }
+
+    // Called every frame the boss is attacking
+    private void RippingReality()
+    {
+        // Play animation
+
+
+        StartCoroutine(Wait(1.0f, () =>
+        {
+            // Spawn reality attack
+            m_wormhole = Instantiate(m_wormholePrefab, m_wormholeSpawn.position, Quaternion.identity).GetComponent<Wormhole>();
+
+            m_wormhole.m_boss = this;
+
+            m_wormhole.Init(m_wormholeProjectilePrefab);
+
+            m_state = EState.wormholeAttack;
+        }));
+
+        if (m_state == EState.rippingReality)
+        {
+            m_state = EState.idle;
+        }
+    }
+
+    // Called every frame the boss is attacking
+    private void WormholeAttack()
+    {
+        m_wormhole.UpdateAttack();
     }
 
     // Fires one projectile
@@ -148,6 +204,26 @@ public class BasicBoss : MonoBehaviour
 
         // DOTween.Kill(this);
         // DOTween.To(() => m_healthBarChase.fillAmount, x => m_healthBarChase.fillAmount = x, newFillAmount, 0.2f).SetEase(Ease.OutQuad);
+    }
+
+    public void NextAttack()
+    {
+        EState nextState = (m_state == EState.wormholeAttack) ? EState.attacking : EState.rippingReality;
+
+        m_state = EState.idle;
+
+        StartCoroutine(Wait(1.0f, () =>
+        {
+            m_state = nextState;
+
+            if (m_state == EState.attacking)
+            {
+                StartCoroutine(Wait(m_basicAttackLength, () =>
+                {
+                    NextAttack();
+                }));
+            }
+        }));
     }
 
     public void ApplyDiamondEffectDebuff()

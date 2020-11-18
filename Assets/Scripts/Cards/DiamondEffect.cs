@@ -7,6 +7,7 @@ public class DiamondEffect : Card
     // Start is called before the first frame update
     protected override void Start()
     {
+        m_cardType = ECardType.Effect;
         base.Start();
         m_ID = ECard.DiamondEffect;
         m_suit = ESuit.Diamonds;

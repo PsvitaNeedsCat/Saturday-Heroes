@@ -13,12 +13,15 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
     private bool m_hitboxActive;
     private int m_attackIndex = 0;
     private float m_cooldownTimer = 0.0f;
+    private bool m_parriedSomething = false;
+    private Player m_player;
 
     private ManaComponent m_mana = null;
 
     private void Awake()
     {
         m_mana = GetComponent<ManaComponent>();
+        m_player= GetComponent<Player>();
     }
 
     public void Attack()
@@ -29,6 +32,7 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
             return;
         }
 
+        m_parriedSomething = false;
         m_animator.SetTrigger("Attack");
         m_animator.SetInteger("AttackIndex", m_attackIndex);
         AudioManager.Instance.PlaySound("swing");
@@ -49,6 +53,12 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
         yield return new WaitForSeconds(_forSeconds);
 
         SetHitbox(false);
+
+        // Lose combo
+        if (!m_parriedSomething)
+        {
+            m_player.CurrentCombo = 0;
+        }
     }
 
     private void SetHitbox(bool _active)
@@ -85,8 +95,11 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
             parryable.OnParried();
             AudioManager.Instance.PlaySound("parry");
             EffectsManager.SpawnEffect("Parry", _collider.transform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), Vector3.one, 2.0f);
+            
+            m_parriedSomething = true;
+            m_player.CurrentCombo += 1;
 
-            m_mana.Mana += parryable.m_manaValue;
+            m_mana.Mana += parryable.m_manaValue * m_player.m_comboMultiplier;
         }
 
         Hurtbox hurtbox = _collider.GetComponent<Hurtbox>();

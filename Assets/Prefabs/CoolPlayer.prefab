@@ -421,6 +421,7 @@ MonoBehaviour:
   m_moveDirection: {x: 0, y: 0}
   m_reviveBar: {fileID: 7965679813042696706}
   m_playerNumber: 0
+  m_playerSuit: 2
   m_rotatable: {fileID: 0}
   m_animator: {fileID: 6611619809515598667}
   m_moveForce: 50

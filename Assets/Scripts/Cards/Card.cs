@@ -2,15 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ECardType
+{
+    Attack,
+    Effect
+}
+
+public enum ECard
+{
+    None,
+    Bolt,
+    DiamondEffect,
+    HeartEffect
+}
+
+public enum ESuit
+{
+    None,
+    Diamonds,
+    Hearts
+}
+
+public struct CardData
+{
+    public ECard ID { get; }
+    public ESuit Suit { get; }
+    public Sprite GetSprite()
+    {
+        return CardManager.GetCardSprite(((int)ID) - 1);
+    }
+    public GameObject GetPrefab()
+    {
+        return CardManager.GetCardPrefab(((int)ID) - 1);
+    }
+    public CardData(ECard _ID)
+    {
+        ID = _ID;
+        Suit = CardManager.m_kCardSuits[ID - 1];
+    }
+}
+
 public abstract class Card : MonoBehaviour
 {
-    public enum ECardType
-    {
-        Attack,
-        Effect
-    }
-
-    protected int m_ID;
+    protected ECard m_ID;
+    protected ESuit m_suit;
     protected ECardType m_cardType;
     protected bool m_valid = true;
     // Start is called before the first frame update
@@ -45,5 +80,10 @@ public abstract class Card : MonoBehaviour
     public void MarkInvalid()
     {
         m_valid = false;
+    }
+
+    public ECard GetCardID()
+    {
+        return m_ID;
     }
 }

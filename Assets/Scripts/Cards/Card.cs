@@ -38,7 +38,14 @@ public struct CardData
     public CardData(ECard _ID)
     {
         ID = _ID;
-        Suit = CardManager.m_kCardSuits[ID - 1];
+        if (ID == ECard.None)
+        {
+            Suit = ESuit.None;
+        }
+        else
+        {
+            Suit = CardManager.m_kCardSuits[ID - 1];
+        }
     }
 }
 

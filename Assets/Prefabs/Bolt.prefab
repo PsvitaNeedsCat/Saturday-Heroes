@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bolt
       objectReference: {fileID: 0}
+    - target: {fileID: 7291902134807781657, guid: 5955a9905df61a44aac2277c97508459, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 21a715a193aa98e4c82bb113d6e49cbd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5955a9905df61a44aac2277c97508459, type: 3}
 --- !u!1 &8279589797213500651 stripped

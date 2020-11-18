@@ -34,6 +34,44 @@ public class Player : MonoBehaviour
     [SerializeField] private float m_dragCoefficient = 10.0f;
     private float m_currentDrag = 0.9f;
 
+    [HideInInspector] public int m_comboMultiplier = 1;
+    private int m_currentCombo = 0;
+
+    public int CurrentCombo
+    {
+        get
+        {
+            return m_currentCombo;
+        }
+
+        set
+        {
+            m_currentCombo = value;
+            int m_oldMultiplier = m_comboMultiplier;
+
+            if (m_currentCombo < 2)
+            {
+                m_comboMultiplier = 1;
+            }
+            else if (m_currentCombo >= 2 && m_currentCombo < 4)
+            {
+                m_comboMultiplier = 2;
+            }
+            else
+            {
+                m_comboMultiplier = 4;
+            }
+
+            // If combo multiplier changed, update UI
+            if (m_comboMultiplier != m_oldMultiplier)
+            {
+                UIManager.Instance.UpdatePlayerCombo(m_playerNumber, m_comboMultiplier);
+            }
+
+            
+        }
+    }
+
     private void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
@@ -120,6 +158,7 @@ public class Player : MonoBehaviour
         m_playerInput.SetControls(false);
 
         m_animator.SetBool("Downed", true);
+        AudioManager.Instance.PlaySound("playerDeath");
     }
 
     private void Revived()
@@ -127,6 +166,7 @@ public class Player : MonoBehaviour
         m_health.m_isDead = false;
         m_health.Health = m_health.MaxHealth;
         m_health.SetIFramesTimer(3.0f);
+        AudioManager.Instance.PlaySound("revive");
 
         UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
 
@@ -229,5 +269,7 @@ public class Player : MonoBehaviour
     private void GenerateNewCard()
     {
         CardManager.GiveRandomCard(m_playerNumber);
+        AudioManager.Instance.PlaySound("drawCard");
+        UIManager.Instance.OnCardDrawn(m_playerNumber);
     }
 }

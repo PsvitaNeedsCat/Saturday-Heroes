@@ -8,7 +8,8 @@ public class HeartEffect : Card
     protected override void Start()
     {
         base.Start();
-        m_ID = 2;
+        m_ID = ECard.HeartEffect;
+        m_suit = ESuit.Hearts;
         m_cardType = ECardType.Effect;
     }
 

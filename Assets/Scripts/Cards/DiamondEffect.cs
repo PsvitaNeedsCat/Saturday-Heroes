@@ -8,7 +8,8 @@ public class DiamondEffect : Card
     protected override void Start()
     {
         base.Start();
-        m_ID = 1;
+        m_ID = ECard.DiamondEffect;
+        m_suit = ESuit.Diamonds;
         m_cardType = ECardType.Effect;
     }
 

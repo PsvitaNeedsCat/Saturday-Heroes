@@ -7,13 +7,17 @@ public class Bolt : Card
     private int m_damage = 1;
     [SerializeField] private GameObject m_projectile;
     private List<GameObject> m_destroyTargets = new List<GameObject>();
+    List<ESuit> m_comboSuitsHit = new List<ESuit>();
     private const float m_kTimerDelay = 1f;
     private float m_timer = m_kTimerDelay;
+    private bool m_diamondEffect = false;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        m_ID = 0;
+        m_ID = ECard.Bolt;
+        m_suit = ESuit.None;
         m_cardType = ECardType.Attack;
 
         // raycast to the cards around, if there are effect cards adjacent, they are destroyed and the bolt's damage value is incremented
@@ -34,6 +38,8 @@ public class Bolt : Card
         AdjacentPlaceEffect(hit);
 
         m_destroyTargets.Add(gameObject);
+
+        Debug.Log("Bolt damage: " + m_damage);
     }
 
     private void AdjacentPlaceEffect(RaycastHit _info)
@@ -47,10 +53,25 @@ public class Bolt : Card
                 {
                     if (cardHit.GetValid())
                     {
+                        m_damage += 1;
+                        if (!m_comboSuitsHit.Contains(CardManager.m_kCardSuits[cardHit.GetCardID()]) && m_comboSuitsHit.Count > 0)
+                        {
+                            m_damage += 1;
+                        }
+                        else
+                        {
+                            m_comboSuitsHit.Add(CardManager.m_kCardSuits[cardHit.GetCardID()]);
+                        }
+                        if (!m_diamondEffect)
+                        {
+                            if (cardHit.GetCardID() == ECard.DiamondEffect)
+                            {
+                                m_diamondEffect = true;
+                            }
+                        }
                         cardHit.MarkInvalid();
                         cardHit.transform.DOMove(transform.position, 1f);
                         m_destroyTargets.Add(cardHit.gameObject);
-                        m_damage += 1;
                     }
                 }
             }
@@ -62,6 +83,11 @@ public class Bolt : Card
         Destroy(_projectile.gameObject);
 
         _boss.ApplyDamage(_projectile.m_damage);
+        
+        if (m_diamondEffect)
+        {
+            _boss.GetComponentInParent<BasicBoss>().ApplyDiamondEffectDebuff();
+        }
     }
 
     // Update is called once per frame
@@ -81,8 +107,11 @@ public class Bolt : Card
         {
             Destroy(target);
         }
-        Instantiate(m_projectile, transform.position + 0.5f * Vector3.up, Quaternion.identity)
-            .GetComponent<Projectile>()
-            .Init(new EDamageType[] { EDamageType.enemy }, m_damage, 4.0f, 8.0f, ProjectileHitBoss);
+        GameObject projectile = Instantiate(m_projectile, transform.position + 0.5f * Vector3.up, Quaternion.identity);
+        projectile.GetComponent<Projectile>().Init(new EDamageType[] { EDamageType.enemy }, m_damage, 4.0f, 8.0f, ProjectileHitBoss);
+
+        Vector3 tempScale = projectile.transform.localScale;
+        tempScale *= m_damage;
+        projectile.transform.localScale = tempScale;
     }
 }

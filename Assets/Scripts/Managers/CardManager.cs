@@ -3,30 +3,16 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+
 public class CardManager : MonoBehaviour
 {
-    public const int kBolt = 0;
-    public const int kDiamondEffect = 1;
-    public const int kHeartEffect = 2;
-    public const int kUniqueCardCount = 3;
-
-    public struct CardData
+    public static readonly Dictionary<ECard, ESuit> m_kCardSuits = new Dictionary<ECard, ESuit>()
     {
-        public int m_ID;
-        public Sprite GetSprite()
-        {
-            return GetCardSprite(m_ID);
-        }
-        public GameObject GetPrefab()
-        {
-            return GetCardPrefab(m_ID);
-        }
-        public CardData(int _ID)
-        {
-            m_ID = _ID;
-        }
-    }
-
+        { ECard.None, ESuit.None },
+        { ECard.Bolt, ESuit.None },
+        { ECard.DiamondEffect, ESuit.Diamonds },
+        { ECard.HeartEffect, ESuit.Hearts }
+    };
 
     [SerializeField] private RectTransform[] m_cardsInterface;
     [SerializeField] private Sprite[] m_cardImages;
@@ -62,7 +48,7 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             // define each player's cards.
-            m_cards[i] = new List<CardData>() { new CardData(kBolt), new CardData(kBolt), new CardData(kBolt), new CardData(kDiamondEffect), new CardData(kDiamondEffect), new CardData(kHeartEffect) };
+            m_cards[i] = new List<CardData>() { new CardData(ECard.DiamondEffect) };
 
             // set up sprite references to make changing UI easy in future.
             m_cardSpritesOnUI[i] = new List<Image>
@@ -220,7 +206,13 @@ public class CardManager : MonoBehaviour
 
     public static void GiveRandomCard(int _player)
     {
-        m_cards[_player].Add(new CardData(Random.Range(0, kUniqueCardCount)));
+        m_cards[_player].Add(new CardData((ECard)Random.Range(0, m_kCardSuits.Count)));
+        UpdateUI(_player);
+    }
+
+    public static void GiveCard(int _player, ECard _card)
+    {
+        m_cards[_player].Add(new CardData(_card));
         UpdateUI(_player);
     }
 }

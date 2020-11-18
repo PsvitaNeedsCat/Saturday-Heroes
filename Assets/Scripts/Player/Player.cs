@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     private ManaComponent m_mana = null;
     private PlayerInput m_playerInput = null;
     [HideInInspector] public int m_playerNumber;
+    public ESuit m_playerSuit;
     private bool m_attemptingRevive = false;
+    private List<ECard> m_cardPool = null;
     
     // Reviving
     private const float m_kReviveRadius = 1.0f;
@@ -45,6 +47,19 @@ public class Player : MonoBehaviour
 
         m_mana = GetComponent<ManaComponent>();
         m_mana.Init(GenerateNewCard, ManaUpdated, ManaUpdated);
+
+        m_cardPool = new List<ECard>();
+        foreach (ECard card in CardManager.m_kCardSuits.Keys)
+        {
+            if (card == ECard.None)
+            {
+                continue;
+            }
+            if (CardManager.m_kCardSuits[card] == m_playerSuit || CardManager.m_kCardSuits[card] == ESuit.None)
+            {
+                m_cardPool.Add(card);
+            }
+        }
     }
 
     private void Start()
@@ -196,7 +211,7 @@ public class Player : MonoBehaviour
         m_reviveBar.FillAmount = (isBarActive) ? 1.0f - (m_revivingTimer / m_kTimeToRevive) : 0.0f;
     }
     
-    public bool AttemptPlaceCard(CardManager.CardData _card)
+    public bool AttemptPlaceCard(CardData _card)
     {
         // find the tile that is below the player
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("GridTile"));
@@ -228,6 +243,7 @@ public class Player : MonoBehaviour
 
     private void GenerateNewCard()
     {
-        CardManager.GiveRandomCard(m_playerNumber);
+        // pick a random card
+        CardManager.GiveCard(m_playerNumber, m_cardPool[Random.Range(0, m_cardPool.Count)]);
     }
 }

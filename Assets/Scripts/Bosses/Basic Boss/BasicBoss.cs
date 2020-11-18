@@ -8,7 +8,9 @@ public class BasicBoss : MonoBehaviour
 {
     public UIBar m_healthBar;
     public Image m_healthBarChase;
-    
+    public Image m_diamondEffectIndicator;
+    public Image m_diamondEffectDurationIndicator;
+    public Color m_diamondEffectColor;
 
     private enum EState
     {
@@ -31,12 +33,19 @@ public class BasicBoss : MonoBehaviour
     [Header("Components")]
     private HealthComponent m_healthComp;
 
+    private bool m_diamondDebuff;
+    private float m_diamondDebuffDuration;
+    private const float m_kDiamondDebuffMaxDuration = 5f;
+    private SpriteRenderer m_spriteRenderer = null;
+
     private void Awake()
     {
         m_projectilePrefab = Resources.Load<GameObject>("prefabs/Bosses/Basic Boss/BossProjectile");
 
+        m_spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+
         m_healthComp = GetComponent<HealthComponent>();
-        m_healthComp.Init(10, OnHurt);
+        m_healthComp.Init(50, OnHurt);
     }
 
     private void Update()
@@ -66,6 +75,7 @@ public class BasicBoss : MonoBehaviour
                     break;
                 }
         }
+        UpdateDebuff();
     }
 
     // Called every frame the boss is in init state
@@ -95,7 +105,7 @@ public class BasicBoss : MonoBehaviour
     // Called every frame the boss is attacking
     private void AttackingState()
     {
-        m_firingTimer += Time.deltaTime;
+        m_firingTimer += Time.deltaTime * (m_diamondDebuff ? 0.5f : 1.0f);
 
         if (m_firingTimer >= m_fireRate)
         {
@@ -138,5 +148,41 @@ public class BasicBoss : MonoBehaviour
 
         // DOTween.Kill(this);
         // DOTween.To(() => m_healthBarChase.fillAmount, x => m_healthBarChase.fillAmount = x, newFillAmount, 0.2f).SetEase(Ease.OutQuad);
+    }
+
+    public void ApplyDiamondEffectDebuff()
+    {
+        m_diamondDebuff = true;
+        m_diamondDebuffDuration = m_kDiamondDebuffMaxDuration;
+    }
+
+    private void UpdateDebuff()
+    {
+        // use how much time has passed to calculate the scale and position of the duration indicator
+        if (m_diamondDebuff)
+        {
+            m_diamondDebuffDuration -= Time.deltaTime;
+            m_diamondEffectIndicator.enabled = true;
+            m_diamondEffectDurationIndicator.enabled = true;
+            m_spriteRenderer.color = m_diamondEffectColor;
+
+            // set position of duration indicator
+            Vector3 position = m_diamondEffectDurationIndicator.rectTransform.localPosition;
+            position.y = 50f * (m_diamondDebuffDuration / m_kDiamondDebuffMaxDuration);
+            m_diamondEffectDurationIndicator.rectTransform.localPosition = position;
+
+            // set scale of duration indicator
+            Vector3 scale = m_diamondEffectDurationIndicator.rectTransform.localScale;
+            scale.y = (1f - (m_diamondDebuffDuration / m_kDiamondDebuffMaxDuration));
+            m_diamondEffectDurationIndicator.rectTransform.localScale = scale;
+
+            if (m_diamondDebuffDuration <= 0)
+            {
+                m_diamondDebuff = false;
+                m_diamondEffectIndicator.enabled = false;
+                m_diamondEffectDurationIndicator.enabled = false;
+                m_spriteRenderer.color = Color.white;
+            }
+        }
     }
 }

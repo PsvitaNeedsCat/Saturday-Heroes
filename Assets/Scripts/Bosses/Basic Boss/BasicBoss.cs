@@ -106,7 +106,7 @@ public class BasicBoss : MonoBehaviour
     // Called every frame the boss is in init state
     private void InitState()
     {
-        AudioManager.Instance.PlaySound("roar");
+        AudioManager.Instance.PlaySound("bossLaugh");
 
         StartCoroutine(Wait(2.8f, () => m_state = EState.rippingReality));
 
@@ -219,6 +219,8 @@ public class BasicBoss : MonoBehaviour
         {
             player.WonGame();
         }
+
+        this.enabled = false;
 
         StartCoroutine(Wait(4.0f, () =>
         {

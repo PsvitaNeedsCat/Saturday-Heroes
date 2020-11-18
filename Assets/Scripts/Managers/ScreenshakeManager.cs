@@ -44,4 +44,9 @@ public class ScreenshakeManager : MonoBehaviour
                 break;
         }
     }
+
+    public static void SmallShake(float _gain)
+    {
+        s_instance.m_smallShake.GenerateImpulse(_gain);
+    }
 }

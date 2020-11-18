@@ -86,6 +86,7 @@ public class Bolt : Card
     {
         Destroy(_projectile.gameObject);
         _boss.ApplyDamage(_projectile.m_damage);
+        ScreenshakeManager.SmallShake(_projectile.m_damage);
        
         if (m_diamondEffect)
         {

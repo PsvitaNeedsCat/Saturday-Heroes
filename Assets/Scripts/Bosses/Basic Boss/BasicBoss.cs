@@ -214,7 +214,12 @@ public class BasicBoss : MonoBehaviour
         m_animator.SetTrigger("Death");
         AudioManager.Instance.PlaySound("bossDeath");
 
-        StartCoroutine(Wait(1.0f, () =>
+        foreach(Player player in FindObjectsOfType<Player>())
+        {
+            player.WonGame();
+        }
+
+        StartCoroutine(Wait(4.0f, () =>
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("WinScene");
         }));

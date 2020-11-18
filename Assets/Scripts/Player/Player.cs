@@ -306,4 +306,9 @@ public class Player : MonoBehaviour
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("LoseScene");
     }
+
+    public void WonGame()
+    {
+        m_animator.SetTrigger("Victory");
+    }
 }

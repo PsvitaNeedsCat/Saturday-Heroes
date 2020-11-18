@@ -16,7 +16,14 @@ public abstract class Card : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-
+        if (m_cardType == ECardType.Attack)
+        {
+            AudioManager.Instance.PlaySound("playActiveCard");
+        }
+        else if (m_cardType == ECardType.Effect)
+        {
+            AudioManager.Instance.PlaySound("playEffectCard");
+        }
     }
 
     // Update is called once per frame

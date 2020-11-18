@@ -120,6 +120,7 @@ public class Player : MonoBehaviour
         m_playerInput.SetControls(false);
 
         m_animator.SetBool("Downed", true);
+        AudioManager.Instance.PlaySound("playerDeath");
     }
 
     private void Revived()
@@ -127,6 +128,7 @@ public class Player : MonoBehaviour
         m_health.m_isDead = false;
         m_health.Health = m_health.MaxHealth;
         m_health.SetIFramesTimer(3.0f);
+        AudioManager.Instance.PlaySound("revive");
 
         UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
 
@@ -229,5 +231,7 @@ public class Player : MonoBehaviour
     private void GenerateNewCard()
     {
         CardManager.GiveRandomCard(m_playerNumber);
+        AudioManager.Instance.PlaySound("drawCard");
+        UIManager.Instance.OnCardDrawn(m_playerNumber);
     }
 }

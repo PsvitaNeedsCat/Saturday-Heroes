@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 using UnityEngine.UI;
 
@@ -57,5 +58,10 @@ public class UIManager : MonoBehaviour
                 player.AttemptPlaceCard(CardManager.GetSelectedCard(_player));
             }
         }
+    }
+
+    public void OnCardDrawn(int _player)
+    {
+        m_playerManaBars[_player].transform.DOPunchScale(Vector3.one * 0.3f, 0.1f);
     }
 }

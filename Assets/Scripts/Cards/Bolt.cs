@@ -12,9 +12,10 @@ public class Bolt : Card
     // Start is called before the first frame update
     protected override void Start()
     {
+        m_cardType = ECardType.Attack;
         base.Start();
         m_ID = 0;
-        m_cardType = ECardType.Attack;
+        
 
         // raycast to the cards around, if there are effect cards adjacent, they are destroyed and the bolt's damage value is incremented
         // Forward
@@ -83,6 +84,8 @@ public class Bolt : Card
         }
         Instantiate(m_projectile, transform.position + 0.5f * Vector3.up, Quaternion.identity)
             .GetComponent<Projectile>()
-            .Init(new EDamageType[] { EDamageType.enemy }, m_damage, 4.0f, 8.0f, ProjectileHitBoss);
+            .Init(new EDamageType[] { EDamageType.enemy }, m_damage, 10.0f, 8.0f, ProjectileHitBoss);
+
+        AudioManager.Instance.PlaySound("boltFire");
     }
 }

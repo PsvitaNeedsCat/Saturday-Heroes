@@ -111,12 +111,4 @@ public class ExampleAttack : MonoBehaviour, IHitboxListener
             }
         }
     }
-
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(0, 0, 50, 20), "Attack"))
-        {
-            Attack();
-        }
-    }
 }

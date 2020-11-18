@@ -9,8 +9,9 @@ public class HeartEffect : Card
     {
         m_cardType = ECardType.Effect;
         base.Start();
-        m_ID = 2;
-        
+        m_ID = ECard.HeartEffect;
+        m_suit = ESuit.Hearts;
+        m_cardType = ECardType.Effect;
     }
 
     // Update is called once per frame

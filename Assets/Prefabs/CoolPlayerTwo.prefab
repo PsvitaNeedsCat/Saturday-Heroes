@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_playerNumber
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3215409961247218854, guid: a7a239cfecadcfd4e891d35ba449adb7, type: 3}
+      propertyPath: m_playerSuit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6611619809305370854, guid: a7a239cfecadcfd4e891d35ba449adb7, type: 3}
       propertyPath: m_Name
       value: CoolPlayerTwo

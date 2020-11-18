@@ -33,7 +33,18 @@ public class Wormhole : MonoBehaviour
             newPoint.y = m_boss.transform.position.y;
             m_points.Add(newPoint);
             potentialPoints.RemoveAt(randomIndex);
-            m_pointGameObjects.Add(Instantiate(m_pointPrefab, newPoint, Quaternion.identity));
+        }
+
+        StartCoroutine(CreatePoints(_projectilePrefab));
+    }
+
+    private IEnumerator CreatePoints(GameObject _projectilePrefab)
+    {
+        for (int i = 0; i < m_points.Count; i++)
+        {
+            m_pointGameObjects.Add(Instantiate(m_pointPrefab, m_points[i], Quaternion.identity));
+
+            yield return new WaitForSeconds(0.3f);
         }
 
         // Create projectile

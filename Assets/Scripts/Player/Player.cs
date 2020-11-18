@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     private ManaComponent m_mana = null;
     private PlayerInput m_playerInput = null;
     [HideInInspector] public int m_playerNumber;
+    public ESuit m_playerSuit;
     private bool m_attemptingRevive = false;
+    private List<ECard> m_cardPool = null;
     
     // Reviving
     private const float m_kReviveRadius = 1.0f;
@@ -37,39 +39,39 @@ public class Player : MonoBehaviour
     [HideInInspector] public int m_comboMultiplier = 1;
     private int m_currentCombo = 0;
 
-    public int CurrentCombo
-    {
-        get
-        {
-            return m_currentCombo;
-        }
-
-        set
-        {
-            m_currentCombo = value;
-            int m_oldMultiplier = m_comboMultiplier;
-
-            if (m_currentCombo < 2)
-            {
-                m_comboMultiplier = 1;
-            }
-            else if (m_currentCombo >= 2 && m_currentCombo < 4)
-            {
-                m_comboMultiplier = 2;
-            }
-            else
-            {
-                m_comboMultiplier = 4;
-            }
-
-            // If combo multiplier changed, update UI
-            if (m_comboMultiplier != m_oldMultiplier)
-            {
-                UIManager.Instance.UpdatePlayerCombo(m_playerNumber, m_comboMultiplier);
-            }
-
-            
-        }
+    public int CurrentCombo
+    {
+        get
+        {
+            return m_currentCombo;
+        }
+
+        set
+        {
+            m_currentCombo = value;
+            int m_oldMultiplier = m_comboMultiplier;
+
+            if (m_currentCombo < 2)
+            {
+                m_comboMultiplier = 1;
+            }
+            else if (m_currentCombo >= 2 && m_currentCombo < 4)
+            {
+                m_comboMultiplier = 2;
+            }
+            else
+            {
+                m_comboMultiplier = 4;
+            }
+
+            // If combo multiplier changed, update UI
+            if (m_comboMultiplier != m_oldMultiplier)
+            {
+                UIManager.Instance.UpdatePlayerCombo(m_playerNumber, m_comboMultiplier);
+            }
+
+            
+        }
     }
 
     private void Awake()
@@ -79,10 +81,23 @@ public class Player : MonoBehaviour
         m_playerInput = GetComponent<PlayerInput>();
 
         m_health = GetComponent<HealthComponent>();
-        m_health.Init(100, OnHurt, Downed, OnHealed);
-
-        m_mana = GetComponent<ManaComponent>();
+        m_health.Init(100, OnHurt, Downed, OnHealed);
+
+        m_mana = GetComponent<ManaComponent>();
         m_mana.Init(GenerateNewCard, ManaUpdated, ManaUpdated);
+
+        m_cardPool = new List<ECard>();
+        foreach (ECard card in CardManager.m_kCardSuits.Keys)
+        {
+            if (card == ECard.None)
+            {
+                continue;
+            }
+            if (CardManager.m_kCardSuits[card] == m_playerSuit || CardManager.m_kCardSuits[card] == ESuit.None)
+            {
+                m_cardPool.Add(card);
+            }
+        }
     }
 
     private void Start()
@@ -236,40 +251,41 @@ public class Player : MonoBehaviour
         m_reviveBar.FillAmount = (isBarActive) ? 1.0f - (m_revivingTimer / m_kTimeToRevive) : 0.0f;
     }
     
-    public bool AttemptPlaceCard(CardManager.CardData _card)
-    {
-        // find the tile that is below the player
-        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("GridTile"));
-
-        if (hit.transform == null)
-        {
-            return false;
-        }
-
-        // if that tile already has a card above it...
-        Physics.Raycast(hit.transform.position, Vector3.up, out RaycastHit cardHit, 10f, LayerMask.GetMask("Card"));
-        if (cardHit.transform)
-        {
-            // report failure to place a new card false
-            return false;
-        }
-
-        // otherwise instantiate the new card right above the tile
-        Instantiate(_card.GetPrefab(), hit.transform.position + Vector3.up * 0.1f, Quaternion.identity);
-        CardManager.UseSelectedCard(m_playerNumber);
-        m_animator.SetTrigger("PlaceCard");
-        return true;
+    public bool AttemptPlaceCard(CardData _card)
+    {
+        // find the tile that is below the player
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("GridTile"));
+
+        if (hit.transform == null)
+        {
+            return false;
+        }
+
+        // if that tile already has a card above it...
+        Physics.Raycast(hit.transform.position, Vector3.up, out RaycastHit cardHit, 10f, LayerMask.GetMask("Card"));
+        if (cardHit.transform)
+        {
+            // report failure to place a new card false
+            return false;
+        }
+
+        // otherwise instantiate the new card right above the tile
+        Instantiate(_card.GetPrefab(), hit.transform.position + Vector3.up * 0.1f, Quaternion.identity);
+        CardManager.UseSelectedCard(m_playerNumber);
+        m_animator.SetTrigger("PlaceCard");
+        return true;
+    }
+
+    private void ManaUpdated()
+    {
+        UIManager.Instance.UpdatePlayerManaBar(m_playerNumber, m_mana.Mana, m_mana.MaxMana);
     }
 
-    private void ManaUpdated()
-    {
-        UIManager.Instance.UpdatePlayerManaBar(m_playerNumber, m_mana.Mana, m_mana.MaxMana);
-    }
-
-    private void GenerateNewCard()
-    {
-        CardManager.GiveRandomCard(m_playerNumber);
-        AudioManager.Instance.PlaySound("drawCard");
-        UIManager.Instance.OnCardDrawn(m_playerNumber);
+    private void GenerateNewCard()
+    {
+        // pick a random card
+        CardManager.GiveCard(m_playerNumber, m_cardPool[Random.Range(0, m_cardPool.Count)]);
+        AudioManager.Instance.PlaySound("drawCard");
+        UIManager.Instance.OnCardDrawn(m_playerNumber);
     }
 }

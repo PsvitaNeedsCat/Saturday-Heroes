@@ -9,8 +9,9 @@ public class DiamondEffect : Card
     {
         m_cardType = ECardType.Effect;
         base.Start();
-        m_ID = 1;
-        
+        m_ID = ECard.DiamondEffect;
+        m_suit = ESuit.Diamonds;
+        m_cardType = ECardType.Effect;
     }
 
     // Update is called once per frame

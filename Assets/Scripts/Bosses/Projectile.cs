@@ -33,7 +33,10 @@ public class Projectile : MonoBehaviour
 
         m_speed = _speed;
 
-        Destroy(gameObject, _timeUntilDestroy);
+        if (_timeUntilDestroy > 0.0f)
+        {
+            Destroy(gameObject, _timeUntilDestroy);
+        }
 
         m_onHit = _onHit;
 
@@ -53,5 +56,14 @@ public class Projectile : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void ChangeDirection(Vector3 _direction)
+    {
+        m_rigidBody.velocity = Vector3.zero;
+
+        transform.rotation = Quaternion.LookRotation(_direction);
+
+        m_rigidBody.velocity = transform.forward * m_speed;
     }
 }

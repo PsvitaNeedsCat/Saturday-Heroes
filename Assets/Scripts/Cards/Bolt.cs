@@ -37,7 +37,6 @@ public class Bolt : Card
         // Left
         Physics.Raycast(transform.position, -Vector3.right, out hit, 1f, LayerMask.GetMask("Card"));
         AdjacentPlaceEffect(hit);
-
         m_destroyTargets.Add(gameObject);
 
         Debug.Log("Bolt damage: " + m_damage);
@@ -70,8 +69,9 @@ public class Bolt : Card
                                 m_diamondEffect = true;
                             }
                         }
-                        cardHit.MarkInvalid();
-                        cardHit.transform.DOMove(transform.position, 1f);
+                        cardHit.MarkInvalid();                        cardHit.transform.DOMove(cardHit.transform.position + Vector3.up * 0.25f, 0.75f).SetEase(Ease.InCubic).OnComplete(() =>                        {
+                            cardHit.transform.DOMove(transform.position, 0.25f).SetEase(Ease.OutQuad);
+                        });
                         m_destroyTargets.Add(cardHit.gameObject);
                     }
                 }
@@ -110,10 +110,9 @@ public class Bolt : Card
         }
         GameObject projectile = Instantiate(m_projectile, transform.position + 0.5f * Vector3.up, Quaternion.identity);
         projectile.GetComponent<Projectile>().Init(new EDamageType[] { EDamageType.enemy }, m_damage, 4.0f, 8.0f, ProjectileHitBoss);
-
-        Vector3 tempScale = projectile.transform.localScale;
-        tempScale *= m_damage;
-        projectile.transform.localScale = tempScale;
+        Vector3 tempScale = projectile.transform.localScale  + Vector3.one * m_damage;
+        tempScale *= m_damage / 3.0f;
+        // projectile.transform.localScale = tempScale;        projectile.transform.DOScale(tempScale, 0.2f).SetEase(Ease.OutCubic);
         AudioManager.Instance.PlaySound("boltFire");
     }
 }

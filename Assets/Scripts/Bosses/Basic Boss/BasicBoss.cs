@@ -8,7 +8,7 @@ public class BasicBoss : MonoBehaviour
 {
     public UIBar m_healthBar;
     public Image m_healthBarChase;
-    
+    public Animator m_animator;
 
     public enum EState
     {
@@ -48,7 +48,7 @@ public class BasicBoss : MonoBehaviour
         m_wormholeProjectilePrefab = Resources.Load<GameObject>("Prefabs/Bosses/Basic Boss/WormholeProjectile");
 
         m_healthComp = GetComponent<HealthComponent>();
-        m_healthComp.Init(10, OnHurt);
+        m_healthComp.Init(10, OnHurt, OnDeath);
     }
 
     private void Update()
@@ -135,7 +135,7 @@ public class BasicBoss : MonoBehaviour
     private void RippingReality()
     {
         // Play animation
-
+        m_animator.SetTrigger("Cut");
 
         StartCoroutine(Wait(1.0f, () =>
         {
@@ -187,13 +187,19 @@ public class BasicBoss : MonoBehaviour
         AudioManager.Instance.PlaySound("hitBoss");
         ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.small);
 
-        
         float newFillAmount = Mathf.Clamp01(m_healthComp.Health / m_healthComp.MaxHealth);
         m_healthBar.FillAmount = newFillAmount;
+
+        m_animator.SetTrigger("Damaged");
         // m_healthBar.fillAmount = newFillAmount;
 
         // DOTween.Kill(this);
         // DOTween.To(() => m_healthBarChase.fillAmount, x => m_healthBarChase.fillAmount = x, newFillAmount, 0.2f).SetEase(Ease.OutQuad);
+    }
+
+    private void OnDeath()
+    {
+        m_animator.SetTrigger("Death");
     }
 
     public void NextAttack()

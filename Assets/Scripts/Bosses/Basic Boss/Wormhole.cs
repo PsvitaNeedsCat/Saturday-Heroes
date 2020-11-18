@@ -90,6 +90,7 @@ public class Wormhole : MonoBehaviour
 
         Destroy(gameObject);
 
+        m_boss.m_animator.SetTrigger("Sew");
         m_boss.NextAttack();
     }
 

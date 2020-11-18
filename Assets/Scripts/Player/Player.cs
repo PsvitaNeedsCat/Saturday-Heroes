@@ -39,6 +39,46 @@ public class Player : MonoBehaviour
     [HideInInspector] public int m_comboMultiplier = 1;
     private int m_currentCombo = 0;
 
+    public int CurrentCombo
+    {
+        get
+        {
+            return m_currentCombo;
+        }
+
+        set
+        {
+            m_currentCombo = value;
+            int m_oldMultiplier = m_comboMultiplier;
+
+            if (m_currentCombo < 2)
+            {
+                m_comboMultiplier = 1;
+            }
+            else if (m_currentCombo >= 2 && m_currentCombo < 4)
+            {
+                m_comboMultiplier = 2;
+            }
+            else
+            {
+                m_comboMultiplier = 4;
+            }
+
+            // If combo multiplier changed, update UI
+            if (m_comboMultiplier != m_oldMultiplier)
+            {
+                UIManager.Instance.UpdatePlayerCombo(m_playerNumber, m_comboMultiplier);                if (m_comboMultiplier > m_oldMultiplier)
+                {
+                    AudioManager.Instance.PlaySound("comboLevelUp");
+                }                else
+                {
+                    AudioManager.Instance.PlaySound("comboLost");
+                }
+            }
+
+            
+        }
+    }
     private bool m_heartEffect = false;
     private int m_heartEffectTriggers = 0;
 
@@ -137,6 +177,7 @@ public class Player : MonoBehaviour
         ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.shortSharp);
 
         UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
+        CurrentCombo = 0;
     }
 
     private void OnHealed()
@@ -152,6 +193,11 @@ public class Player : MonoBehaviour
 
         m_animator.SetBool("Downed", true);
         AudioManager.Instance.PlaySound("playerDeath");
+
+        if (m_otherPlayer.m_health.m_isDead)
+        {
+            StartCoroutine(LostGame());
+        }
     }
 
     private void Revived()
@@ -266,11 +312,34 @@ public class Player : MonoBehaviour
         }
     }
     
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("CardEffect"))
-        {
-            ECard card = other.GetComponentInParent<Card>().GetCardID();
+    public bool AttemptPlaceCard(CardData _card)
+    {
+        // find the tile that is below the player
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("GridTile"));
+
+        if (hit.transform == null)
+        {
+            return false;
+        }
+
+        // if that tile already has a card above it...
+        Physics.Raycast(hit.transform.position, Vector3.up, out RaycastHit cardHit, 10f, LayerMask.GetMask("Card"));
+        if (cardHit.transform)
+        {
+            // report failure to place a new card false
+            return false;
+        }
+
+        // otherwise instantiate the new card right above the tile
+        Instantiate(_card.GetPrefab(), hit.transform.position + Vector3.up * 0.1f, Quaternion.identity);
+        CardManager.UseSelectedCard(m_playerNumber);
+        m_animator.SetTrigger("PlaceCard");
+        return true;
+    }
+    private void ManaUpdated()
+    {
+        UIManager.Instance.UpdatePlayerManaBar(m_playerNumber, m_mana.Mana, m_mana.MaxMana);
+    }
 
             if (card == ECard.DiamondEffect)
             {
@@ -289,5 +358,12 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator LostGame()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LoseScene");
     }
 }

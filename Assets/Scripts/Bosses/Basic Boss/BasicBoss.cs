@@ -8,6 +8,7 @@ public class BasicBoss : MonoBehaviour
 {
     public UIBar m_healthBar;
     public Image m_healthBarChase;
+    public Animator m_animator;
     public Image m_diamondEffectIndicator;
     public Image m_diamondEffectDurationIndicator;
     public Color m_diamondEffectColor;
@@ -40,7 +41,7 @@ public class BasicBoss : MonoBehaviour
     private GameObject m_wormholeProjectilePrefab = null;
 
     [Header("Components")]
-    private HealthComponent m_healthComp;
+    [HideInInspector] public HealthComponent m_healthComp;
 
     private bool m_diamondDebuff;
     private float m_diamondDebuffDuration;
@@ -57,7 +58,7 @@ public class BasicBoss : MonoBehaviour
         m_wormholeProjectilePrefab = Resources.Load<GameObject>("Prefabs/Bosses/Basic Boss/WormholeProjectile");
 
         m_healthComp = GetComponent<HealthComponent>();
-        m_healthComp.Init(50, OnHurt);
+        m_healthComp.Init(50, OnHurt, OnDeath);
     }
 
     private void Update()
@@ -115,7 +116,7 @@ public class BasicBoss : MonoBehaviour
         }
     }
 
-    private IEnumerator Wait(float _seconds, System.Action _action)
+    public IEnumerator Wait(float _seconds, System.Action _action)
     {
         yield return new WaitForSeconds(_seconds);
 
@@ -145,7 +146,8 @@ public class BasicBoss : MonoBehaviour
     private void RippingReality()
     {
         // Play animation
-
+        m_animator.SetTrigger("Cut");
+        AudioManager.Instance.PlaySound("riftAppear");
 
         StartCoroutine(Wait(1.0f, () =>
         {
@@ -197,13 +199,25 @@ public class BasicBoss : MonoBehaviour
         AudioManager.Instance.PlaySound("hitBoss");
         ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.small);
 
-        
         float newFillAmount = Mathf.Clamp01(m_healthComp.Health / m_healthComp.MaxHealth);
         m_healthBar.FillAmount = newFillAmount;
+
+        m_animator.SetTrigger("Damaged");
         // m_healthBar.fillAmount = newFillAmount;
 
         // DOTween.Kill(this);
         // DOTween.To(() => m_healthBarChase.fillAmount, x => m_healthBarChase.fillAmount = x, newFillAmount, 0.2f).SetEase(Ease.OutQuad);
+    }
+
+    private void OnDeath()
+    {
+        m_animator.SetTrigger("Death");
+        AudioManager.Instance.PlaySound("bossDeath");
+
+        StartCoroutine(Wait(1.0f, () =>
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("WinScene");
+        }));
     }
 
     public void NextAttack()

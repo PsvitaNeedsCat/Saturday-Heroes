@@ -99,9 +99,12 @@ public class Wormhole : MonoBehaviour
             Destroy(m_pointGameObjects[i]);
         }
 
-        Destroy(gameObject);
-
         m_boss.m_animator.SetTrigger("Sew");
+        StartCoroutine(m_boss.Wait(1.0f, () =>
+        {
+            Destroy(gameObject);
+        }));
+
         m_boss.NextAttack();
     }
 

@@ -116,7 +116,7 @@ public class BasicBoss : MonoBehaviour
         }
     }
 
-    private IEnumerator Wait(float _seconds, System.Action _action)
+    public IEnumerator Wait(float _seconds, System.Action _action)
     {
         yield return new WaitForSeconds(_seconds);
 

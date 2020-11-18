@@ -681,7 +681,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7091949891593704746}
   - component: {fileID: 2224277951316841838}
-  - component: {fileID: 7691127}
+  - component: {fileID: 8379647431881694217}
   m_Layer: 0
   m_Name: BossAnimations
   m_TagString: Untagged
@@ -754,19 +754,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7691127
-MonoBehaviour:
+--- !u!95 &8379647431881694217
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4797776054447702877}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3558f9f3853602e4f832a87db9328f49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_billboardedObject: {fileID: 7091949891593704746}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a7ef229af0ec6545a8519392f7f956c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5306522961806012655
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,8 +796,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5306522961806012655}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.74}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.65, y: 0.71999997, z: 2.1200004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6890327094046428807}
@@ -1057,7 +1063,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6527060753978785847}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1192,10 +1198,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_healthBar: {fileID: 216739526}
   m_healthBarChase: {fileID: 2881976571160960365}
-  m_state: 0
+  m_animator: {fileID: 8379647431881694217}
   m_diamondEffectIndicator: {fileID: 7258706848178992990}
   m_diamondEffectDurationIndicator: {fileID: 6110703967240590620}
   m_diamondEffectColor: {r: 0.5330188, g: 0.8168204, b: 1, a: 1}
+  m_state: 0
   m_projectileSpawns:
   - {fileID: 2485100168635024580}
   - {fileID: 8463175957591714559}
@@ -1526,7 +1533,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8162192660415236843}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

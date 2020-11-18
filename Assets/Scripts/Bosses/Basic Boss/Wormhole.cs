@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using DG.Tweening;
 
 public class Wormhole : MonoBehaviour
 {
@@ -43,7 +44,9 @@ public class Wormhole : MonoBehaviour
         for (int i = 0; i < m_points.Count; i++)
         {
             m_pointGameObjects.Add(Instantiate(m_pointPrefab, m_points[i], Quaternion.identity));
-
+            AudioManager.Instance.PlaySound("starAppear");
+            m_pointGameObjects[i].transform.localScale = Vector3.one * 0.0f;
+            m_pointGameObjects[i].transform.DOScale(Vector3.one * 0.2f, 0.3f).SetEase(Ease.InElastic);
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -99,7 +102,12 @@ public class Wormhole : MonoBehaviour
             Destroy(m_pointGameObjects[i]);
         }
 
-        Destroy(gameObject);
+        m_boss.m_animator.SetTrigger("Sew");
+        AudioManager.Instance.PlaySound("riftClosed");
+        StartCoroutine(m_boss.Wait(1.0f, () =>
+        {
+            Destroy(gameObject);
+        }));
 
         m_boss.NextAttack();
     }
@@ -109,5 +117,7 @@ public class Wormhole : MonoBehaviour
         Vector3 newDirection = m_points[m_pointsIndex] - m_projectile.transform.position;
 
         m_projectile.ChangeDirection(newDirection);
+
+        AudioManager.Instance.PlaySound("riftBulletMove");
     }
 }

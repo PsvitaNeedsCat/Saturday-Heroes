@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public ESuit m_playerSuit;
     private bool m_attemptingRevive = false;
     private List<ECard> m_cardPool = null;
-
+    
     // Reviving
     private const float m_kReviveRadius = 1.0f;
     private const float m_kTimeToRevive = 1.5f;
@@ -45,32 +45,21 @@ public class Player : MonoBehaviour
     private bool m_diamondEffect = false;
     private int m_diamondEffectTriggers = 0;
 
-    public int CurrentCombo
-    {
-        get
-        {
-            return m_currentCombo;
-        }
+    public int CurrentCombo    {        get        {            return m_currentCombo;        }        set        {            m_currentCombo = value;            int m_oldMultiplier = m_comboMultiplier;            if (m_currentCombo < 2)            {                m_comboMultiplier = 1;            }            else if (m_currentCombo >= 2 && m_currentCombo < 4)            {                m_comboMultiplier = 2;            }            else            {                m_comboMultiplier = 4;            }            // If combo multiplier changed, update UI            if (m_comboMultiplier != m_oldMultiplier)            {                UIManager.Instance.UpdatePlayerCombo(m_playerNumber, m_comboMultiplier);                if (m_comboMultiplier > m_oldMultiplier)
+                {
+                    AudioManager.Instance.PlaySound("comboLevelUp");
+                }                else
+                {
+                    AudioManager.Instance.PlaySound("comboLost");
+                }            }        }    }
 
-        set
-        {
-            m_currentCombo = value;
-            int m_oldMultiplier = m_comboMultiplier;            if (m_currentCombo < 2)            {                m_comboMultiplier = 1;            }            else if (m_currentCombo >= 2 && m_currentCombo < 4)            {                m_comboMultiplier = 2;            }            else            {                m_comboMultiplier = 4;            }
-
-            // If combo multiplier changed, update UI
-            if (m_comboMultiplier != m_oldMultiplier)            {                UIManager.Instance.UpdatePlayerCombo(m_playerNumber, m_comboMultiplier);            }
-
-
-        }    }
     private void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
         m_playerInput = GetComponent<PlayerInput>();
-
         m_health = GetComponent<HealthComponent>();
         m_health.Init(100, OnHurt, Downed, OnHealed);        m_mana = GetComponent<ManaComponent>();        m_mana.Init(GenerateNewCard, ManaUpdated, ManaUpdated);
-
-        m_cardPool = new List<ECard>();        foreach (ECard card in CardManager.m_kCardSuits.Keys)        {            if (card == ECard.None)            {                continue;            }            if (CardManager.m_kCardSuits[card] == m_playerSuit || CardManager.m_kCardSuits[card] == ESuit.None)            {                m_cardPool.Add(card);            }        }
+        m_cardPool = new List<ECard>();        foreach (ECard card in CardManager.m_kCardSuits.Keys)        {            if (card == ECard.None)            {                continue;            }            if (CardManager.m_kCardSuits[card] == m_playerSuit || CardManager.m_kCardSuits[card] == ESuit.None)            {                m_cardPool.Add(card);            }        }
     }
 
     private void Start()
@@ -137,6 +126,7 @@ public class Player : MonoBehaviour
         ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.shortSharp);
 
         UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
+        CurrentCombo = 0;
     }
 
     private void OnHealed()
@@ -152,6 +142,11 @@ public class Player : MonoBehaviour
 
         m_animator.SetBool("Downed", true);
         AudioManager.Instance.PlaySound("playerDeath");
+
+        if (m_otherPlayer.m_health.m_isDead)
+        {
+            StartCoroutine(LostGame());
+        }
     }
 
     private void Revived()
@@ -182,6 +177,7 @@ public class Player : MonoBehaviour
             }
 
             float playerDistance = (m_otherPlayer.transform.position - transform.position).magnitude;
+
             if (playerDistance <= m_kReviveRadius)
             {
                 m_revivingTimer -= Time.deltaTime;
@@ -192,6 +188,7 @@ public class Player : MonoBehaviour
             }
 
             m_revivingTimer = Mathf.Clamp(m_revivingTimer, 0.0f, m_kTimeToRevive);
+            
             UpdateReviveIcon();
 
             if (m_revivingTimer <= 0.0f)
@@ -210,11 +207,8 @@ public class Player : MonoBehaviour
         {
             return;
         }
-
         m_attemptingRevive = false;
-
-        m_revivingTimer = m_kTimeToRevive;
-
+        m_revivingTimer = m_kTimeToRevive;     
         UpdateReviveIcon();
     }
 
@@ -226,9 +220,8 @@ public class Player : MonoBehaviour
         m_reviveBar.transform.parent.parent.gameObject.SetActive(isBarActive);
         m_reviveBar.FillAmount = (isBarActive) ? 1.0f - (m_revivingTimer / m_kTimeToRevive) : 0.0f;
     }
-
-    public bool AttemptPlaceCard(CardData _card)    {
-        if (_card.ID == ECard.None)
+    
+    public bool AttemptPlaceCard(CardData _card)    {        if (_card.ID == ECard.None)
         {
             return false;
         }
@@ -242,11 +235,22 @@ public class Player : MonoBehaviour
             return false;        }
 
         // otherwise instantiate the new card right above the tile
-        Instantiate(_card.GetPrefab(), hit.transform.position + Vector3.up * 0.1f, Quaternion.identity);        CardManager.UseSelectedCard(m_playerNumber);        m_animator.SetTrigger("PlaceCard");        return true;    }    private void ManaUpdated()    {        UIManager.Instance.UpdatePlayerManaBar(m_playerNumber, m_mana.Mana, m_mana.MaxMana);    }
-    private void GenerateNewCard()    {
-        // pick a random card
-        CardManager.GiveCard(m_playerNumber, m_cardPool[Random.Range(0, m_cardPool.Count)]);        AudioManager.Instance.PlaySound("drawCard");        UIManager.Instance.OnCardDrawn(m_playerNumber);    }
+        Instantiate(_card.GetPrefab(), hit.transform.position + Vector3.up * 0.1f, Quaternion.identity);        CardManager.UseSelectedCard(m_playerNumber);        m_animator.SetTrigger("PlaceCard");        return true;
+    }
+    private void ManaUpdated()    {        UIManager.Instance.UpdatePlayerManaBar(m_playerNumber, m_mana.Mana, m_mana.MaxMana);    }
+    private void GenerateNewCard()    {        // pick a random card        CardManager.GiveCard(m_playerNumber, m_cardPool[Random.Range(0, m_cardPool.Count)]);        AudioManager.Instance.PlaySound("drawCard");        UIManager.Instance.OnCardDrawn(m_playerNumber);    }
 
+    private IEnumerator LostGame()
+    {
+        yield return new WaitForSeconds(1.0f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LoseScene");
+    }
+
+    public void WonGame()
+    {
+        m_animator.SetTrigger("Victory");
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("CardEffect"))
@@ -265,7 +269,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("CardEffect"))

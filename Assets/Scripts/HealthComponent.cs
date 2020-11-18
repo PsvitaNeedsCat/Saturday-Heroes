@@ -110,4 +110,12 @@ public class HealthComponent : MonoBehaviour
             }
         }
     }
+
+    // Kills even if invincible
+    public void ForceKill()
+    {
+        m_health = 0.0f;
+
+        m_OnDeath();
+    }
 }

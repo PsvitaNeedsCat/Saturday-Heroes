@@ -212,6 +212,8 @@ public class BasicBoss : MonoBehaviour
 
     private void OnDeath()
     {
+        m_state = EState.idle;
+
         m_animator.SetTrigger("Death");
         AudioManager.Instance.PlaySound("bossDeath");
 

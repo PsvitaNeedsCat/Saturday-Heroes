@@ -41,7 +41,7 @@ public class BasicBoss : MonoBehaviour
     private GameObject m_wormholeProjectilePrefab = null;
 
     [Header("Components")]
-    private HealthComponent m_healthComp;
+    [HideInInspector] public HealthComponent m_healthComp;
 
     private bool m_diamondDebuff;
     private float m_diamondDebuffDuration;

@@ -50,6 +50,11 @@ public class PlayerInput : MonoBehaviour
         m_controls.Player.Enable();
     }
 
+    private void OnDestroy()
+    {
+        m_controls.Disable();
+    }
+
     public void SetControls(bool _active)
     {
         if (_active)

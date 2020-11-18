@@ -6,7 +6,6 @@ public class CheatConsole : MonoBehaviour
 {
     // Variables go here
 
-
     // Console variables
     private bool m_showConsole = false;
     private bool m_showHelp = false;
@@ -27,6 +26,8 @@ public class CheatConsole : MonoBehaviour
     public static CheatCommand SHOW_TIME_SCALE;
     public static CheatCommand SHOW_FPS;
     public static CheatCommand VSYNC;
+    public static CheatCommand KILL_BOSS;
+    public static CheatCommand<int> KILL_PLAYER;
 
     public List<object> m_commandList;
 
@@ -74,6 +75,28 @@ public class CheatConsole : MonoBehaviour
             }
         });
 
+        KILL_BOSS = new CheatCommand("kill_boss", "Instantly kills the boss", "kill_boss", () =>
+        {
+            FindObjectOfType<BasicBoss>().m_healthComp.ForceKill();
+        });
+
+        KILL_PLAYER = new CheatCommand<int>("kill_player", "Instantly kills the player specified", "kill_player <player number>", (x) =>
+        {
+            if (x < 0 || x > 1)
+            {
+                return;
+            }
+
+            Player[] players = FindObjectsOfType<Player>();
+            foreach (Player p in players)
+            {
+                if (p.m_playerNumber == x)
+                {
+                    p.GetComponent<HealthComponent>().ForceKill();
+                }
+            }
+        });
+
         // Commands list
         m_commandList = new List<object>()
         {
@@ -82,6 +105,8 @@ public class CheatConsole : MonoBehaviour
             SHOW_TIME_SCALE,
             SHOW_FPS,
             VSYNC,
+            KILL_BOSS,
+            KILL_PLAYER,
         };
     }
 

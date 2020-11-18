@@ -408,7 +408,7 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_ActionsAsset: {fileID: -944628639613478452, guid: 26420d7e4480ea340aa4fef7387a2ce6, type: 3}
   m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: -5643027645870150426, guid: 26420d7e4480ea340aa4fef7387a2ce6, type: 3}
+  m_MoveAction: {fileID: -3756799176628481100, guid: 26420d7e4480ea340aa4fef7387a2ce6, type: 3}
   m_SubmitAction: {fileID: 7561670177283468190, guid: 26420d7e4480ea340aa4fef7387a2ce6, type: 3}
   m_CancelAction: {fileID: -7467605581836336008, guid: 26420d7e4480ea340aa4fef7387a2ce6, type: 3}
   m_LeftClickAction: {fileID: 0}
@@ -512,8 +512,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_swapRate: 0.5
   m_sprites:
-  - {fileID: 21300000, guid: 28069557ab816e04f8a283dba4e8619d, type: 3}
-  - {fileID: 21300000, guid: 9c344f92a9503864fadcaedd5ccb8518, type: 3}
+  - {fileID: 21300000, guid: 91469245781cb50438bae92524aeb0d3, type: 3}
+  - {fileID: 21300000, guid: b7632a6503db86e4596dfdaab2412fa7, type: 3}
 --- !u!114 &926377353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,7 +534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 28069557ab816e04f8a283dba4e8619d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91469245781cb50438bae92524aeb0d3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

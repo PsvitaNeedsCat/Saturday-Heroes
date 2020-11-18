@@ -175,6 +175,11 @@ public class Player : MonoBehaviour
 
         m_animator.SetBool("Downed", true);
         AudioManager.Instance.PlaySound("playerDeath");
+
+        if (m_otherPlayer.m_health.m_isDead)
+        {
+            StartCoroutine(LostGame());
+        }
     }
 
     private void Revived()
@@ -276,7 +281,6 @@ public class Player : MonoBehaviour
         m_animator.SetTrigger("PlaceCard");
         return true;
     }
-
     private void ManaUpdated()
     {
         UIManager.Instance.UpdatePlayerManaBar(m_playerNumber, m_mana.Mana, m_mana.MaxMana);
@@ -288,5 +292,12 @@ public class Player : MonoBehaviour
         CardManager.GiveCard(m_playerNumber, m_cardPool[Random.Range(0, m_cardPool.Count)]);
         AudioManager.Instance.PlaySound("drawCard");
         UIManager.Instance.OnCardDrawn(m_playerNumber);
+    }
+
+    private IEnumerator LostGame()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LoseScene");
     }
 }

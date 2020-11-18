@@ -211,6 +211,11 @@ public class BasicBoss : MonoBehaviour
     private void OnDeath()
     {
         m_animator.SetTrigger("Death");
+
+        StartCoroutine(Wait(1.0f, () =>
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("WinScene");
+        }));
     }
 
     public void NextAttack()

@@ -6,7 +6,8 @@ using UnityEngine;
 public enum EDamageType
 {
     player,
-    enemy
+    enemy,
+    wormholePoint,
 }
 
 // Parent class for hitbox & hurtbox

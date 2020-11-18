@@ -20,11 +20,16 @@ public class PlayerInput : MonoBehaviour
 
         if (Gamepad.all.Count < m_playerNumber + 1)
         {
-            Debug.LogWarning("Controller not connected for player: " + m_playerNumber);
-            return;
-        }
+            Debug.Log("No gamepad available for player " + m_playerNumber);
 
-        m_controls.devices = new[] { Gamepad.all[m_playerNumber] };
+            m_controls.devices = new[] { Keyboard.all[0] };
+        }
+        else
+        {
+            Debug.Log("Gamepad available for player " + m_playerNumber);
+
+            m_controls.devices = new[] { Gamepad.all[m_playerNumber], Keyboard.all[0] };
+        }
 
         // Movement
         m_controls.Player.Movement.performed += ctx => m_player.m_moveDirection = ctx.ReadValue<Vector2>();
@@ -46,6 +51,58 @@ public class PlayerInput : MonoBehaviour
 
         // Play card
         m_controls.Player.PlayCard.performed += _ => m_player.AttemptPlaceCard(CardManager.GetSelectedCard(m_playerNumber));
+
+        // Keyboard
+        if (m_playerNumber == 0)
+        {
+            // Movement
+            m_controls.Player1Keyboard.Movement.performed += ctx => m_player.m_moveDirection = ctx.ReadValue<Vector2>();
+            m_controls.Player1Keyboard.Movement.canceled += ctx => m_player.m_moveDirection = ctx.ReadValue<Vector2>();
+
+            // Attack
+            m_attack = GetComponent<ExampleAttack>();
+            if (m_attack)
+            {
+                m_controls.Player1Keyboard.Attack.performed += _ => m_attack.Attack();
+            }
+
+            // Revive
+            m_controls.Player1Keyboard.Revive.performed += _ => StartCoroutine(m_player.TryRevive());
+            m_controls.Player1Keyboard.Revive.canceled += _ => m_player.StopReviving();
+
+            // Card selection
+            m_controls.Player1Keyboard.CardSelection.performed += ctx => ChangeCardSelection(ctx.ReadValue<float>());
+
+            // Play card
+            m_controls.Player1Keyboard.PlayCard.performed += _ => m_player.AttemptPlaceCard(CardManager.GetSelectedCard(m_playerNumber));
+
+            m_controls.Player1Keyboard.Enable();
+        }
+        else // Player 2
+        {
+            // Movement
+            m_controls.Player2Keyboard.Movement.performed += ctx => m_player.m_moveDirection = ctx.ReadValue<Vector2>();
+            m_controls.Player2Keyboard.Movement.canceled += ctx => m_player.m_moveDirection = ctx.ReadValue<Vector2>();
+
+            // Attack
+            m_attack = GetComponent<ExampleAttack>();
+            if (m_attack)
+            {
+                m_controls.Player2Keyboard.Attack.performed += _ => m_attack.Attack();
+            }
+
+            // Revive
+            m_controls.Player2Keyboard.Revive.performed += _ => StartCoroutine(m_player.TryRevive());
+            m_controls.Player2Keyboard.Revive.canceled += _ => m_player.StopReviving();
+
+            // Card selection
+            m_controls.Player2Keyboard.CardSelection.performed += ctx => ChangeCardSelection(ctx.ReadValue<float>());
+
+            // Play card
+            m_controls.Player2Keyboard.PlayCard.performed += _ => m_player.AttemptPlaceCard(CardManager.GetSelectedCard(m_playerNumber));
+
+            m_controls.Player2Keyboard.Enable();
+        }
 
         m_controls.Player.Enable();
     }

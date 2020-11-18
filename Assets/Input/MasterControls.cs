@@ -72,61 +72,6 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""bf8cd445-2eef-44c8-b527-a95117dddf53"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""0dc56d43-a04e-4bfc-8e87-f317d6f5dba2"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""e7b15e3d-9bea-4ee0-a6bf-45e1db673de6"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""70e16e4b-8b8d-4c7b-a875-45fb011a5e57"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""b358a2a5-a023-4da3-884c-6faca8357ba8"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""0bbc38c0-c37c-4d11-a6ad-03b91f76f357"",
                     ""path"": ""<Gamepad>/buttonSouth"",
@@ -139,33 +84,11 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ef37a6fe-3c36-4e7f-ad8a-9cb23820e52c"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""bce523ed-d2b6-4b6b-b28f-26de9a006065"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Revive"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""90cfc707-a6e9-426f-b3a1-4352b55c2a86"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
                     ""action"": ""Revive"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -204,8 +127,177 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": """",
+                    ""id"": ""6724961f-f21b-4cde-bd9f-456fe8acf9b2"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Play Card"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player1 Keyboard"",
+            ""id"": ""0b31af19-c21f-4503-a118-0fc6181edf75"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""59f5b112-8edc-4afc-9f11-2226f71ee650"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""be036488-7d9f-4b9c-ab59-4a6efdd40af1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Revive"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e0faba8-4a5b-4a9a-9584-3c9f72b2d28a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2)""
+                },
+                {
+                    ""name"": ""Card Selection"",
+                    ""type"": ""Value"",
+                    ""id"": ""3684b1cb-ef7f-45b6-b80d-66c297123655"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Play Card"",
+                    ""type"": ""Button"",
+                    ""id"": ""6caf29de-88cf-45a9-a2ef-8baf29608591"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e6fd074f-441a-429b-988c-160586255e5f"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""284d8de3-c0cd-4a69-a109-3cb53a04c8bd"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""efc9c21c-4710-4e8a-9a57-eb3d4071dbbd"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""d3ea65f3-1e4c-4d73-a75a-4c304c19e06c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""305020e1-9402-4790-80fc-a26dc2246f54"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""2d5f3feb-69a4-471e-8224-6a7131a677cf"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbad907c-12f2-4a54-9d21-05da1ccd5fbe"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3fcef90-9b55-42bb-a5ce-2356667ef857"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9204d1a1-2e80-429c-ae8c-d73e4822d3c5"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Revive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c504b031-f8c0-4487-95db-af00cacf6066"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Revive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
                     ""name"": ""1D Axis"",
-                    ""id"": ""7c5a6194-9903-4688-bb92-19b69e0f516d"",
+                    ""id"": ""c933d112-c4af-47c8-bf74-64713caf8eb3"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -216,8 +308,41 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""f91cab50-c457-4dd3-ac5c-ef380a6b7e0c"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""id"": ""6330967a-34a2-4114-b8eb-f3824aa0b181"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""0a134aa1-3619-403f-a1bd-ef76ada16ca1"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""HK"",
+                    ""id"": ""815d9436-83ab-43cc-a052-552c1b388567"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c6bf226f-12eb-4d4f-8658-78db9bb4c973"",
+                    ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -227,8 +352,8 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""5b1459d4-7ce4-44a0-8f23-755fc9a7afd2"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""id"": ""7ec9689e-3a82-49dd-8406-c3af0f0ba441"",
+                    ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -238,7 +363,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6724961f-f21b-4cde-bd9f-456fe8acf9b2"",
+                    ""id"": ""385874c8-197c-4dc2-adca-de031e52b9d5"",
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -249,8 +374,254 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""544194ff-5c89-4fba-a53d-1bd2cb5f9dff"",
+                    ""id"": ""34933906-3069-48d5-adc8-e3f70e36f70e"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Play Card"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player2 Keyboard"",
+            ""id"": ""86202f63-5f4b-4b3e-8562-21da69c1af01"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""c3f60823-5e0b-4ee0-af66-94ce466c552e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd68e5bc-47c9-4a1b-8651-117d06cabffe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Revive"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f1560ff-4484-4996-855b-2457dbad9271"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2)""
+                },
+                {
+                    ""name"": ""Card Selection"",
+                    ""type"": ""Value"",
+                    ""id"": ""302baf17-a459-4c3e-909e-fb3496d0f0d7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Play Card"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b902ad7-5bd0-442f-b83e-d22e4d2c8d26"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8d36b4e2-1d3b-4592-b0fe-f6a62a5312f4"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrow Keys"",
+                    ""id"": ""235b5f13-4552-4cbe-88c0-553c5d61f727"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""7bfc50c2-5bf2-491d-b032-997335213112"",
                     ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""b3b110e4-e757-4146-bb44-c50c869c6513"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""78cd2698-6a71-4b2c-a1bc-c9430895f848"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""2ff3261e-5bfc-47aa-995b-b6ffe38a59cf"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53fae7a9-7ee1-4603-b70e-e72c5e7d7aa9"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09a722a8-1ef9-497d-aa54-403c8d2a06e8"",
+                    ""path"": ""<Keyboard>/numpad5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b7a498b-b7ca-482b-ad65-70263b2292ef"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Revive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6a2d88c-13cf-435f-9de0-f5ad99db3e7b"",
+                    ""path"": ""<Keyboard>/numpad5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Revive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""df68a99b-d26a-4f06-9323-c24f3ed9e627"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""9097774d-a4fb-4715-9ec3-670f5cd97b57"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""254d00d1-da7f-4975-b3d0-735e047bfe46"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""46"",
+                    ""id"": ""289c6ee4-ece0-4d8e-ab32-94a8d64928b8"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""464f01b1-02f3-4658-8079-405d2c8129fd"",
+                    ""path"": ""<Keyboard>/numpad4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""19e21bbb-ad9c-428f-9dae-f01317eb7c12"",
+                    ""path"": ""<Keyboard>/numpad6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Card Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""038b1cc6-3f44-4f85-8ac3-1ea38af18278"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Play Card"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11c78e74-ed08-414e-a85c-65f09034e8f0"",
+                    ""path"": ""<Keyboard>/numpad8"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -472,6 +843,20 @@ public class @MasterControls : IInputActionCollection, IDisposable
         m_Player_Revive = m_Player.FindAction("Revive", throwIfNotFound: true);
         m_Player_CardSelection = m_Player.FindAction("Card Selection", throwIfNotFound: true);
         m_Player_PlayCard = m_Player.FindAction("Play Card", throwIfNotFound: true);
+        // Player1 Keyboard
+        m_Player1Keyboard = asset.FindActionMap("Player1 Keyboard", throwIfNotFound: true);
+        m_Player1Keyboard_Movement = m_Player1Keyboard.FindAction("Movement", throwIfNotFound: true);
+        m_Player1Keyboard_Attack = m_Player1Keyboard.FindAction("Attack", throwIfNotFound: true);
+        m_Player1Keyboard_Revive = m_Player1Keyboard.FindAction("Revive", throwIfNotFound: true);
+        m_Player1Keyboard_CardSelection = m_Player1Keyboard.FindAction("Card Selection", throwIfNotFound: true);
+        m_Player1Keyboard_PlayCard = m_Player1Keyboard.FindAction("Play Card", throwIfNotFound: true);
+        // Player2 Keyboard
+        m_Player2Keyboard = asset.FindActionMap("Player2 Keyboard", throwIfNotFound: true);
+        m_Player2Keyboard_Movement = m_Player2Keyboard.FindAction("Movement", throwIfNotFound: true);
+        m_Player2Keyboard_Attack = m_Player2Keyboard.FindAction("Attack", throwIfNotFound: true);
+        m_Player2Keyboard_Revive = m_Player2Keyboard.FindAction("Revive", throwIfNotFound: true);
+        m_Player2Keyboard_CardSelection = m_Player2Keyboard.FindAction("Card Selection", throwIfNotFound: true);
+        m_Player2Keyboard_PlayCard = m_Player2Keyboard.FindAction("Play Card", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Movement = m_Menu.FindAction("Movement", throwIfNotFound: true);
@@ -593,6 +978,136 @@ public class @MasterControls : IInputActionCollection, IDisposable
     }
     public PlayerActions @Player => new PlayerActions(this);
 
+    // Player1 Keyboard
+    private readonly InputActionMap m_Player1Keyboard;
+    private IPlayer1KeyboardActions m_Player1KeyboardActionsCallbackInterface;
+    private readonly InputAction m_Player1Keyboard_Movement;
+    private readonly InputAction m_Player1Keyboard_Attack;
+    private readonly InputAction m_Player1Keyboard_Revive;
+    private readonly InputAction m_Player1Keyboard_CardSelection;
+    private readonly InputAction m_Player1Keyboard_PlayCard;
+    public struct Player1KeyboardActions
+    {
+        private @MasterControls m_Wrapper;
+        public Player1KeyboardActions(@MasterControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Player1Keyboard_Movement;
+        public InputAction @Attack => m_Wrapper.m_Player1Keyboard_Attack;
+        public InputAction @Revive => m_Wrapper.m_Player1Keyboard_Revive;
+        public InputAction @CardSelection => m_Wrapper.m_Player1Keyboard_CardSelection;
+        public InputAction @PlayCard => m_Wrapper.m_Player1Keyboard_PlayCard;
+        public InputActionMap Get() { return m_Wrapper.m_Player1Keyboard; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Player1KeyboardActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayer1KeyboardActions instance)
+        {
+            if (m_Wrapper.m_Player1KeyboardActionsCallbackInterface != null)
+            {
+                @Movement.started -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnMovement;
+                @Attack.started -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnAttack;
+                @Revive.started -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnRevive;
+                @Revive.performed -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnRevive;
+                @Revive.canceled -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnRevive;
+                @CardSelection.started -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnCardSelection;
+                @CardSelection.performed -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnCardSelection;
+                @CardSelection.canceled -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnCardSelection;
+                @PlayCard.started -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnPlayCard;
+                @PlayCard.performed -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnPlayCard;
+                @PlayCard.canceled -= m_Wrapper.m_Player1KeyboardActionsCallbackInterface.OnPlayCard;
+            }
+            m_Wrapper.m_Player1KeyboardActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+                @Revive.started += instance.OnRevive;
+                @Revive.performed += instance.OnRevive;
+                @Revive.canceled += instance.OnRevive;
+                @CardSelection.started += instance.OnCardSelection;
+                @CardSelection.performed += instance.OnCardSelection;
+                @CardSelection.canceled += instance.OnCardSelection;
+                @PlayCard.started += instance.OnPlayCard;
+                @PlayCard.performed += instance.OnPlayCard;
+                @PlayCard.canceled += instance.OnPlayCard;
+            }
+        }
+    }
+    public Player1KeyboardActions @Player1Keyboard => new Player1KeyboardActions(this);
+
+    // Player2 Keyboard
+    private readonly InputActionMap m_Player2Keyboard;
+    private IPlayer2KeyboardActions m_Player2KeyboardActionsCallbackInterface;
+    private readonly InputAction m_Player2Keyboard_Movement;
+    private readonly InputAction m_Player2Keyboard_Attack;
+    private readonly InputAction m_Player2Keyboard_Revive;
+    private readonly InputAction m_Player2Keyboard_CardSelection;
+    private readonly InputAction m_Player2Keyboard_PlayCard;
+    public struct Player2KeyboardActions
+    {
+        private @MasterControls m_Wrapper;
+        public Player2KeyboardActions(@MasterControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Player2Keyboard_Movement;
+        public InputAction @Attack => m_Wrapper.m_Player2Keyboard_Attack;
+        public InputAction @Revive => m_Wrapper.m_Player2Keyboard_Revive;
+        public InputAction @CardSelection => m_Wrapper.m_Player2Keyboard_CardSelection;
+        public InputAction @PlayCard => m_Wrapper.m_Player2Keyboard_PlayCard;
+        public InputActionMap Get() { return m_Wrapper.m_Player2Keyboard; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Player2KeyboardActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayer2KeyboardActions instance)
+        {
+            if (m_Wrapper.m_Player2KeyboardActionsCallbackInterface != null)
+            {
+                @Movement.started -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnMovement;
+                @Attack.started -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnAttack;
+                @Revive.started -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnRevive;
+                @Revive.performed -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnRevive;
+                @Revive.canceled -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnRevive;
+                @CardSelection.started -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnCardSelection;
+                @CardSelection.performed -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnCardSelection;
+                @CardSelection.canceled -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnCardSelection;
+                @PlayCard.started -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnPlayCard;
+                @PlayCard.performed -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnPlayCard;
+                @PlayCard.canceled -= m_Wrapper.m_Player2KeyboardActionsCallbackInterface.OnPlayCard;
+            }
+            m_Wrapper.m_Player2KeyboardActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+                @Revive.started += instance.OnRevive;
+                @Revive.performed += instance.OnRevive;
+                @Revive.canceled += instance.OnRevive;
+                @CardSelection.started += instance.OnCardSelection;
+                @CardSelection.performed += instance.OnCardSelection;
+                @CardSelection.canceled += instance.OnCardSelection;
+                @PlayCard.started += instance.OnPlayCard;
+                @PlayCard.performed += instance.OnPlayCard;
+                @PlayCard.canceled += instance.OnPlayCard;
+            }
+        }
+    }
+    public Player2KeyboardActions @Player2Keyboard => new Player2KeyboardActions(this);
+
     // Menu
     private readonly InputActionMap m_Menu;
     private IMenuActions m_MenuActionsCallbackInterface;
@@ -709,6 +1224,22 @@ public class @MasterControls : IInputActionCollection, IDisposable
         }
     }
     public interface IPlayerActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnRevive(InputAction.CallbackContext context);
+        void OnCardSelection(InputAction.CallbackContext context);
+        void OnPlayCard(InputAction.CallbackContext context);
+    }
+    public interface IPlayer1KeyboardActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnRevive(InputAction.CallbackContext context);
+        void OnCardSelection(InputAction.CallbackContext context);
+        void OnPlayCard(InputAction.CallbackContext context);
+    }
+    public interface IPlayer2KeyboardActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);

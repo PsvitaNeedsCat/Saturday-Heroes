@@ -111,11 +111,11 @@ public class Bolt : Card
             Destroy(target);
         }
         GameObject projectile = Instantiate(m_projectile, transform.position + 0.5f * Vector3.up, Quaternion.identity);
-        projectile.GetComponent<Projectile>().Init(new EDamageType[] { EDamageType.enemy }, m_damage, 4.0f, 8.0f, ProjectileHitBoss);
+        projectile.GetComponent<Projectile>().Init(new EDamageType[] { EDamageType.enemy }, m_damage, 15.0f, 8.0f, ProjectileHitBoss);
 
-        Vector3 tempScale = projectile.transform.localScale  + Vector3.one * m_damage;
+        Vector3 tempScale = projectile.transform.localScale  + Vector3.one * m_damage / 35.0f;
 
-        tempScale *= m_damage / 3.0f;
+        //tempScale *= m_damage / 35.0f;
 
         // projectile.transform.localScale = tempScale;
         projectile.transform.DOScale(tempScale, 0.2f).SetEase(Ease.OutCubic);

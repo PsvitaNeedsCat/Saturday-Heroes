@@ -48,7 +48,7 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             // define each player's cards.
-            m_cards[i] = new List<CardData>() { new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect)};
+            m_cards[i] = new List<CardData>(); // { new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect), new CardData(ECard.DiamondEffect)};
 
             // set up sprite references to make changing UI easy in future.
             m_cardSpritesOnUI[i] = new List<Image>

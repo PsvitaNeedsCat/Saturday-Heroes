@@ -53,7 +53,7 @@ public class Wormhole : MonoBehaviour
         // Create projectile
         Quaternion rotation = Quaternion.LookRotation(m_points[m_pointsIndex] - transform.position);
         m_projectile = Instantiate(_projectilePrefab, transform.position, rotation).GetComponent<Projectile>();
-        m_projectile.Init(m_projHitTypes, m_kProjectileDamage, 4.0f, 0.0f, ProjectileHit);
+        m_projectile.Init(m_projHitTypes, m_kProjectileDamage, 6.0f, 0.0f, ProjectileHit);
         m_projectile.GetComponentInChildren<Parryable>().m_parryAction = AttackFinished;
     }
 

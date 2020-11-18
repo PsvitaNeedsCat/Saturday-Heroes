@@ -132,7 +132,7 @@ public class BasicBoss : MonoBehaviour
     // Called every frame the boss is attacking
     private void AttackingState()
     {
-        m_firingTimer += Time.deltaTime * (m_diamondDebuff ? 0.5f : 1.0f);
+        m_firingTimer += Time.deltaTime;// * (m_diamondDebuff ? 0.5f : 1.0f);
 
         if (m_firingTimer >= m_fireRate)
         {
@@ -181,7 +181,8 @@ public class BasicBoss : MonoBehaviour
         Vector3 position = m_projectileSpawns[positionIndex].position;
         Projectile proj = Instantiate(m_projectilePrefab, position, rotation).GetComponent<Projectile>();
 
-        proj.Init(m_projHitTypes, 10, 4.0f, 8.0f, ProjectileHitPlayer);
+        float projSpeed = (m_diamondDebuff) ? 6.0f : 10.0f;
+        proj.Init(m_projHitTypes, 10, projSpeed, 8.0f, ProjectileHitPlayer);
     }
 
     private void ProjectileHitPlayer(Hurtbox _player, Projectile _projectile)

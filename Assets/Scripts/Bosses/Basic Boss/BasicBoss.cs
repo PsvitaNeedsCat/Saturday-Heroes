@@ -147,6 +147,7 @@ public class BasicBoss : MonoBehaviour
     {
         // Play animation
         m_animator.SetTrigger("Cut");
+        AudioManager.Instance.PlaySound("riftAppear");
 
         StartCoroutine(Wait(1.0f, () =>
         {
@@ -211,6 +212,7 @@ public class BasicBoss : MonoBehaviour
     private void OnDeath()
     {
         m_animator.SetTrigger("Death");
+        AudioManager.Instance.PlaySound("bossDeath");
     }
 
     public void NextAttack()

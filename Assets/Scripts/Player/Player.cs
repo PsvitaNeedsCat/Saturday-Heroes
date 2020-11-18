@@ -159,6 +159,7 @@ public class Player : MonoBehaviour
         ScreenshakeManager.Shake(ScreenshakeManager.EShakeType.shortSharp);
 
         UIManager.Instance.UpdatePlayerHealthBar(m_playerNumber, m_health.Health, m_health.MaxHealth);
+        CurrentCombo = 0;
     }
 
     private void OnHealed()

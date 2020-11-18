@@ -213,6 +213,11 @@ public class BasicBoss : MonoBehaviour
     {
         m_animator.SetTrigger("Death");
         AudioManager.Instance.PlaySound("bossDeath");
+
+        StartCoroutine(Wait(1.0f, () =>
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("WinScene");
+        }));
     }
 
     public void NextAttack()

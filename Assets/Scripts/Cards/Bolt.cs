@@ -43,75 +43,37 @@ public class Bolt : Card
 
     private void AdjacentPlaceEffect(RaycastHit _info)
     {
-        if (_info.collider)
-        {
-            Card cardHit = _info.collider.gameObject.GetComponent<Card>();
-            if (cardHit)
-            {
-                if (cardHit.GetCardType() == ECardType.Effect)
-                {
-                    if (cardHit.GetValid())
-                    {
-                        m_damage += 1;
-                        if (!m_comboSuitsHit.Contains(CardManager.m_kCardSuits[cardHit.GetCardID()]) && m_comboSuitsHit.Count > 0)
-                        {
-                            m_damage += 1;
-                        }
-                        else
-                        {
-                            m_comboSuitsHit.Add(CardManager.m_kCardSuits[cardHit.GetCardID()]);
-                        }
-                        if (!m_diamondEffect)
-                        {
-                            if (cardHit.GetCardID() == ECard.DiamondEffect)
-                            {
-                                m_diamondEffect = true;
-                            }
-                        }
-                        cardHit.MarkInvalid();
-                        cardHit.transform.DOMove(transform.position, 1f);
-                        m_destroyTargets.Add(cardHit.gameObject);
-                    }
-                }
-            }
-        }
+        if (_info.collider)        {            Card cardHit = _info.collider.gameObject.GetComponentInParent<Card>();            if (cardHit)            {                if (cardHit.GetCardType() == ECardType.Effect)                {                    if (cardHit.GetValid())                    {                        m_damage += 1;                        if (!m_comboSuitsHit.Contains(CardManager.m_kCardSuits[cardHit.GetCardID()]) && m_comboSuitsHit.Count > 0)                        {                            m_damage += 1;                        }                        else                        {                            m_comboSuitsHit.Add(CardManager.m_kCardSuits[cardHit.GetCardID()]);                        }                        if (!m_diamondEffect)                        {                            if (cardHit.GetCardID() == ECard.DiamondEffect)                            {                                m_diamondEffect = true;                            }                        }                        cardHit.MarkInvalid();                        cardHit.transform.DOMove(transform.position, 1f);                        m_destroyTargets.Add(cardHit.gameObject);                    }                }            }        }
     }
-
     private void ProjectileHitBoss(Hurtbox _boss, Projectile _projectile)
     {
         Destroy(_projectile.gameObject);
-
         _boss.ApplyDamage(_projectile.m_damage);
-        
-        if (m_diamondEffect)
-        {
-            _boss.GetComponentInParent<BasicBoss>().ApplyDiamondEffectDebuff();
-        }
+               if (m_diamondEffect)        {            _boss.GetComponentInParent<BasicBoss>().ApplyDiamondEffectDebuff();        }
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         m_timer -= Time.deltaTime;
-        if (m_timer <= 0)
-        {
-            AnimationOver();
+        if (m_timer <= 0)
+        {
+            AnimationOver();
         }
         base.Update();
     }
 
-    private void AnimationOver()
-    {
-        foreach (GameObject target in m_destroyTargets)
-        {
-            Destroy(target);
-        }
-        GameObject projectile = Instantiate(m_projectile, transform.position + 0.5f * Vector3.up, Quaternion.identity);
+    private void AnimationOver()
+    {
+        foreach (GameObject target in m_destroyTargets)
+        {
+            Destroy(target);
+        }
+        GameObject projectile = Instantiate(m_projectile, transform.position + 0.5f * Vector3.up, Quaternion.identity);
         projectile.GetComponent<Projectile>().Init(new EDamageType[] { EDamageType.enemy }, m_damage, 4.0f, 8.0f, ProjectileHitBoss);
-
-        Vector3 tempScale = projectile.transform.localScale;
-        tempScale *= m_damage;
-        projectile.transform.localScale = tempScale;
-        AudioManager.Instance.PlaySound("boltFire");
+        Vector3 tempScale = projectile.transform.localScale;
+        tempScale *= m_damage;
+        projectile.transform.localScale = tempScale;
+        AudioManager.Instance.PlaySound("boltFire");
     }
 }

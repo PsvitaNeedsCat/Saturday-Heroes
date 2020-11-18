@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private UIBar[] m_playerHealthBars = new UIBar[2];
     [SerializeField] private UIBar[] m_playerManaBars = new UIBar[2];
+    [SerializeField] private TextMeshProUGUI[] m_playerCombos = new TextMeshProUGUI[2];
 
     private static UIManager s_instance;
     public static UIManager Instance
@@ -39,6 +41,12 @@ public class UIManager : MonoBehaviour
         m_playerManaBars[_playerNum].FillAmount = (_mana == 0.0f) ? 0.0f : _mana / _maxMana;
     }
 
+    public void UpdatePlayerCombo(int _playerNum, int _newCombo)
+    {
+        m_playerCombos[_playerNum].text = "x" + _newCombo.ToString();
+        m_playerCombos[_playerNum].transform.DOPunchScale(Vector3.one * 0.3f, 0.1f);
+    }
+
     public void SwitchRight(int _player)
     {
         CardManager.SelectNextCard(_player);
@@ -62,6 +70,7 @@ public class UIManager : MonoBehaviour
 
     public void OnCardDrawn(int _player)
     {
-        m_playerManaBars[_player].transform.DOPunchScale(Vector3.one * 0.3f, 0.1f);
+        m_playerManaBars[_player].transform.Find("ManaForeground")?.DOPunchScale(Vector3.one * 0.3f, 0.1f);
+        m_playerManaBars[_player].transform.Find("ManaBackground")?.DOPunchScale(Vector3.one * 0.3f, 0.1f);
     }
 }

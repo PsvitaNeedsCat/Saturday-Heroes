@@ -67,7 +67,13 @@ public class Player : MonoBehaviour
             // If combo multiplier changed, update UI
             if (m_comboMultiplier != m_oldMultiplier)
             {
-                UIManager.Instance.UpdatePlayerCombo(m_playerNumber, m_comboMultiplier);
+                UIManager.Instance.UpdatePlayerCombo(m_playerNumber, m_comboMultiplier);                if (m_comboMultiplier > m_oldMultiplier)
+                {
+                    AudioManager.Instance.PlaySound("comboLevelUp");
+                }                else
+                {
+                    AudioManager.Instance.PlaySound("comboLost");
+                }
             }
 
             

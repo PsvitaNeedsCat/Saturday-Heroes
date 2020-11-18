@@ -26,7 +26,7 @@ AnimatorStateMachine:
     m_Position: {x: 480, y: 550, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1579847667927095569}
-    m_Position: {x: 660, y: 420, z: 0}
+    m_Position: {x: 720, y: 420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6752402338185990495}
     m_Position: {x: 270, y: 420, z: 0}
@@ -146,7 +146,7 @@ AnimatorStateTransition:
   m_ExitTime: 0.516129
   m_HasExitTime: 0
   m_HasFixedDuration: 0
-  m_InterruptionSource: 0
+  m_InterruptionSource: 3
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &-6311883902860832200
@@ -202,7 +202,7 @@ AnimatorStateTransition:
   m_ExitTime: 0.516129
   m_HasExitTime: 0
   m_HasFixedDuration: 0
-  m_InterruptionSource: 0
+  m_InterruptionSource: 3
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &-4566166081350484028
@@ -356,7 +356,7 @@ AnimatorStateTransition:
   m_ExitTime: 0.516129
   m_HasExitTime: 0
   m_HasFixedDuration: 0
-  m_InterruptionSource: 0
+  m_InterruptionSource: 3
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!91 &9100000
@@ -766,7 +766,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: AttackIndex
-    m_EventTreshold: 0
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6250473759521936704}
   m_Solo: 0

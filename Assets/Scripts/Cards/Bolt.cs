@@ -39,8 +39,6 @@ public class Bolt : Card
         AdjacentPlaceEffect(hit);
 
         m_destroyTargets.Add(gameObject);
-
-        Debug.Log("Bolt damage: " + m_damage);
     }
 
     private void AdjacentPlaceEffect(RaycastHit _info)

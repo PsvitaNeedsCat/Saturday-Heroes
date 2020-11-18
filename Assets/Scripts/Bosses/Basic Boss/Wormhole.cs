@@ -12,6 +12,7 @@ public class Wormhole : MonoBehaviour
     private int m_pointsIndex = 0;
     private const int m_kNumPoints = 5;
     private Projectile m_projectile;
+    private const float m_kProjectileDamage = 50.0f;
     [SerializeField] private GameObject m_pointPrefab;
     private EDamageType[] m_projHitTypes = new EDamageType[]
     {
@@ -38,7 +39,8 @@ public class Wormhole : MonoBehaviour
         // Create projectile
         Quaternion rotation = Quaternion.LookRotation(m_points[m_pointsIndex] - transform.position);
         m_projectile = Instantiate(_projectilePrefab, transform.position, rotation).GetComponent<Projectile>();
-        m_projectile.Init(m_projHitTypes, 10, 4.0f, 0.0f, ProjectileHit);
+        m_projectile.Init(m_projHitTypes, m_kProjectileDamage, 4.0f, 0.0f, ProjectileHit);
+        m_projectile.GetComponentInChildren<Parryable>().m_parryAction = AttackFinished;
     }
 
     private void ProjectileHit(Hurtbox _hurtbox, Projectile _projectile)
@@ -76,9 +78,10 @@ public class Wormhole : MonoBehaviour
 
     private void AttackFinished()
     {
-        m_boss.m_state = BasicBoss.EState.attacking;
-
-        Destroy(m_projectile.gameObject);
+        if (m_projectile)
+        {
+            Destroy(m_projectile.gameObject);
+        }
 
         for (int i = 0; i < m_pointGameObjects.Count; i++)
         {
@@ -86,6 +89,8 @@ public class Wormhole : MonoBehaviour
         }
 
         Destroy(gameObject);
+
+        m_boss.NextAttack();
     }
 
     private void MoveTowardsCurrentPoint()

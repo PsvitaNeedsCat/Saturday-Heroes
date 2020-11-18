@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6524690433728750545
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111875, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262990197071111877, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_Name
+      value: WormholeProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732302701735888388, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bc59ecf95de302a4ca377526ff5e333b, type: 2}
+    - target: {fileID: 4325180302010798106, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f747bc031fae9941ae23cb8882b4eeb, type: 2}
+    - target: {fileID: 6033564649219175717, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f747bc031fae9941ae23cb8882b4eeb, type: 2}
+    - target: {fileID: 8362618422772825562, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dcaf27084b66a847828f942fa73554c, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a43bcaed30968e499a8cd64564d7ad9, type: 3}

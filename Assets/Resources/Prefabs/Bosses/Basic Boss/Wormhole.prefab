@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4363821660084902868}
   - component: {fileID: 6935976567777928068}
   - component: {fileID: 7195623777769164967}
+  - component: {fileID: 5797381472377117174}
   m_Layer: 0
   m_Name: Wormhole
   m_TagString: Untagged
@@ -27,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8326812063582233555}
   m_LocalRotation: {x: 0.109081164, y: -0.69864225, z: 0.10908112, w: 0.69864273}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3145771, y: 1.04498, z: 1}
+  m_LocalPosition: {x: -0.2065, y: 0.6453, z: -0.3404}
+  m_LocalScale: {x: 0.9952817, y: 2.4000924, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,3 +97,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_boss: {fileID: 0}
   m_pointPrefab: {fileID: 2997242046580937482, guid: b21d042ce5059d94889734968d856069, type: 3}
+--- !u!114 &5797381472377117174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8326812063582233555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3558f9f3853602e4f832a87db9328f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_billboardedObject: {fileID: 6618729004230753673}

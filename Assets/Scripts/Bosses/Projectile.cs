@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    [HideInInspector] public int m_damage = 1;
+    [HideInInspector] public float m_damage = 1.0f;
 
     private float m_speed = 1.0f;
     private Rigidbody m_rigidBody = null;
@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
     // Initialises the projectile
     public void Init(
         EDamageType[] _hitTypes,
-        int _damage = 1, 
+        float _damage = 1.0f, 
         float _speed = 1.0f, 
         float _timeUntilDestroy = 3.0f, 
         Action<Hurtbox, Projectile> _onHit = null )
